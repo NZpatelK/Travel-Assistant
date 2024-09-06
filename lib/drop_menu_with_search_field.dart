@@ -6,16 +6,19 @@ class DropMenuWithSearchField extends StatefulWidget {
   final String? selectedValue;
   final ValueChanged<String?> onChanged;
   final String hintText;
+  final bool isDisabled;
 
-  const DropMenuWithSearchField({
+  const DropMenuWithSearchField({super.key, 
     required this.items,
     required this.selectedValue,
     required this.onChanged,
     required this.hintText,
+    required this.isDisabled
   });
 
   @override
-  _DropMenuWithSearchFieldState createState() => _DropMenuWithSearchFieldState();
+  _DropMenuWithSearchFieldState createState() =>
+      _DropMenuWithSearchFieldState();
 }
 
 class _DropMenuWithSearchFieldState extends State<DropMenuWithSearchField> {
@@ -26,7 +29,8 @@ class _DropMenuWithSearchFieldState extends State<DropMenuWithSearchField> {
   void initState() {
     super.initState();
     _focusNode = FocusNode();
-    _selectedDestination = widget.selectedValue; // Initialize with selectedValue
+    _selectedDestination =
+        widget.selectedValue; // Initialize with selectedValue
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         setState(() {});
@@ -44,7 +48,7 @@ class _DropMenuWithSearchFieldState extends State<DropMenuWithSearchField> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.7,
+      // height: MediaQuery.of(context).size.height * 0.7,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -74,6 +78,7 @@ class _DropMenuWithSearchFieldState extends State<DropMenuWithSearchField> {
               ],
             ),
             child: SearchField(
+              enabled: !widget.isDisabled,
               focusNode: _focusNode,
               hint: widget.hintText,
               searchInputDecoration: InputDecoration(
@@ -102,12 +107,13 @@ class _DropMenuWithSearchFieldState extends State<DropMenuWithSearchField> {
                 setState(() {
                   _selectedDestination = suggestion.searchKey;
                 });
-                widget.onChanged(_selectedDestination); // Notify about the change
-                _focusNode.unfocus(); // Unfocus the SearchField after selecting a suggestion
+                widget
+                    .onChanged(_selectedDestination); // Notify about the change
+                _focusNode
+                    .unfocus(); // Unfocus the SearchField after selecting a suggestion
               },
-              suggestions: widget.items
-                  .map((e) => SearchFieldListItem(e))
-                  .toList(),
+              suggestions:
+                  widget.items.map((e) => SearchFieldListItem(e)).toList(),
             ),
           ),
         ],

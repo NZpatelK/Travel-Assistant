@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'drop_menu_with_search_field.dart';
 import 'destination_data.dart';
 
-import 'package:searchfield/searchfield.dart';
-
 class DestinationSearch extends StatefulWidget {
   const DestinationSearch({super.key});
 
@@ -13,6 +11,7 @@ class DestinationSearch extends StatefulWidget {
 
 class _DestinationSearchState extends State<DestinationSearch> {
   String? _selectedDestination;
+  String? _selectedCity;
   final FocusNode _focusNode = FocusNode(); // Add a FocusNode
 
   @override
@@ -61,7 +60,9 @@ class _DestinationSearchState extends State<DestinationSearch> {
                       _selectedDestination = selectedValue;
                     });
                   },
-                  hintText: "Select a Destination"),
+                  hintText: "Select a Destination",
+                  isDisabled: false),
+                  DropMenuWithSearchField(items: _selectedDestination == null ? [] : DestinationData.destinations[_selectedDestination!]?.toList() ?? [], selectedValue: _selectedCity, onChanged: (selectedValue) {setState(() {_selectedCity = selectedValue;});}, hintText: "Select a City", isDisabled: _selectedDestination == null),
               Container(
                 height: 90,
                 padding: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
