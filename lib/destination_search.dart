@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:searchfield/searchfield.dart';
 
-class CountrySearch extends StatefulWidget {
-  const CountrySearch({Key? key}) : super(key: key);
+class DestinationSearch extends StatefulWidget {
+  const DestinationSearch({super.key});
 
   @override
-  _CountrySearchState createState() => _CountrySearchState();
+  _DestinationSearchState createState() => _DestinationSearchState();
 }
 
-class _CountrySearchState extends State<CountrySearch> {
-  String? _selectedCountry;
-  FocusNode _focusNode = FocusNode(); // Add a FocusNode
+class _DestinationSearchState extends State<DestinationSearch> {
+  String? _selectedDestination;
+  final FocusNode _focusNode = FocusNode(); // Add a FocusNode
 
   @override
   void initState() {
@@ -50,7 +50,7 @@ class _CountrySearchState extends State<CountrySearch> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: Column(
@@ -110,7 +110,7 @@ class _CountrySearchState extends State<CountrySearch> {
                         onSuggestionTap:
                             (SearchFieldListItem<dynamic> suggestion) {
                           setState(() {
-                            _selectedCountry = suggestion.searchKey;
+                            _selectedDestination = suggestion.searchKey;
                           });
                           _focusNode
                               .unfocus(); // Unfocus the SearchField after selecting a suggestion
@@ -126,7 +126,7 @@ class _CountrySearchState extends State<CountrySearch> {
                           "Armenia",
                           "Australia",
                           "Austria",
-                          // Continue with the rest of the country list
+                          // Continue with the rest of the Destination list
                         ].map((e) => SearchFieldListItem(e)).toList(),
                       ),
                     ),
@@ -142,14 +142,14 @@ class _CountrySearchState extends State<CountrySearch> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _selectedCountry == null
+                    _selectedDestination == null
                         ? const Text(
                             'Please select a destination to continue',
                             style:
                                 TextStyle(fontSize: 16, color: Colors.blueGrey),
                           )
                         : Text(
-                            _selectedCountry!,
+                            _selectedDestination!,
                             style: TextStyle(
                                 color: Colors.grey.shade800,
                                 fontSize: 16,
@@ -159,7 +159,7 @@ class _CountrySearchState extends State<CountrySearch> {
                       onPressed: () {},
                       minWidth: 50,
                       height: 50,
-                      color: Color.fromARGB(255, 27, 132, 251),
+                      color: const Color.fromARGB(255, 27, 132, 251),
                       padding: const EdgeInsets.all(0),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
