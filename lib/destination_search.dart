@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'drop_menu_with_search_field.dart';
+import 'destination_data.dart';
+
 import 'package:searchfield/searchfield.dart';
 
 class DestinationSearch extends StatefulWidget {
@@ -50,89 +53,15 @@ class _DestinationSearchState extends State<DestinationSearch> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Text(
-                        "Select a Destination",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.blueGrey,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            blurRadius: 10,
-                            offset: const Offset(0, 10),
-                          )
-                        ],
-                      ),
-                      child: SearchField(
-                        focusNode:
-                            _focusNode, // Assign the FocusNode to the SearchField
-                        hint: 'Search',
-                        searchInputDecoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.blueGrey.shade200,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.blueGrey.withOpacity(0.8),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        itemHeight: 50,
-                        maxSuggestionsInViewPort: 4,
-                        suggestionsDecoration: SuggestionDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        onSuggestionTap:
-                            (SearchFieldListItem<dynamic> suggestion) {
-                          setState(() {
-                            _selectedDestination = suggestion.searchKey;
-                          });
-                          _focusNode
-                              .unfocus(); // Unfocus the SearchField after selecting a suggestion
-                        },
-                        suggestions: const [
-                          "Afghanistan",
-                          "Albania",
-                          "Algeria",
-                          "Andorra",
-                          "Angola",
-                          "Antigua and Barbuda",
-                          "Argentina",
-                          "Armenia",
-                          "Australia",
-                          "Austria",
-                          // Continue with the rest of the Destination list
-                        ].map((e) => SearchFieldListItem(e)).toList(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              DropMenuWithSearchField(
+                  items: DestinationData.destinations.keys.toList(),
+                  selectedValue: _selectedDestination,
+                  onChanged: (selectedValue) {
+                    setState(() {
+                      _selectedDestination = selectedValue;
+                    });
+                  },
+                  hintText: "Select a Destination"),
               Container(
                 height: 90,
                 padding: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
