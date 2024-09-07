@@ -62,7 +62,20 @@ class _DestinationSearchState extends State<DestinationSearch> {
                   },
                   hintText: "Select a Destination",
                   isDisabled: false),
-                  DropMenuWithSearchField(items: _selectedDestination == null ? [] : DestinationData.destinations[_selectedDestination!]?.toList() ?? [], selectedValue: _selectedCity, onChanged: (selectedValue) {setState(() {_selectedCity = selectedValue;});}, hintText: "Select a City", isDisabled: _selectedDestination == null),
+              DropMenuWithSearchField(
+                  items: _selectedDestination == null
+                      ? []
+                      : DestinationData.destinations[_selectedDestination!]
+                              ?.toList() ??
+                          [],
+                  selectedValue: _selectedCity,
+                  onChanged: (selectedValue) {
+                    setState(() {
+                      _selectedCity = selectedValue;
+                    });
+                  },
+                  hintText: "Select a City",
+                  isDisabled: _selectedDestination == null),
               Container(
                 height: 90,
                 padding: const EdgeInsets.only(right: 20, left: 20, bottom: 20),

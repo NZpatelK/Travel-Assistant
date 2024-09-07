@@ -8,13 +8,13 @@ class DropMenuWithSearchField extends StatefulWidget {
   final String hintText;
   final bool isDisabled;
 
-  const DropMenuWithSearchField({super.key, 
-    required this.items,
-    required this.selectedValue,
-    required this.onChanged,
-    required this.hintText,
-    required this.isDisabled
-  });
+  const DropMenuWithSearchField(
+      {super.key,
+      required this.items,
+      required this.selectedValue,
+      required this.onChanged,
+      required this.hintText,
+      required this.isDisabled});
 
   @override
   _DropMenuWithSearchFieldState createState() =>
