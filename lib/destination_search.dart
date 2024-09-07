@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'drop_menu_with_search_field.dart';
 import 'destination_data.dart';
+import 'datepicker.dart';
 
 class DestinationSearch extends StatefulWidget {
   const DestinationSearch({super.key});
@@ -64,7 +65,9 @@ class _DestinationSearchState extends State<DestinationSearch> {
               DropMenuWithSearchField(
                 items: _selectedDestination == null
                     ? []
-                    : DestinationData.destinations[_selectedDestination!]?.toList() ?? [],
+                    : DestinationData.destinations[_selectedDestination!]
+                            ?.toList() ??
+                        [],
                 selectedValue: _selectedCity,
                 onChanged: (selectedValue) {
                   setState(() {
@@ -75,10 +78,12 @@ class _DestinationSearchState extends State<DestinationSearch> {
                 header: "Select City",
                 isDisabled: _selectedDestination == null,
               ),
+              const DatePicker(),
               const Spacer(), // This pushes the bottom container to the bottom of the screen
               Container(
                 height: 90,
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 10.0),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
@@ -88,7 +93,8 @@ class _DestinationSearchState extends State<DestinationSearch> {
                     _selectedDestination == null
                         ? const Text(
                             'Please select a destination to continue',
-                            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.blueGrey),
                           )
                         : Text(
                             _selectedDestination!,
