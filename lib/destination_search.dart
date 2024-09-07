@@ -12,15 +12,13 @@ class DestinationSearch extends StatefulWidget {
 class _DestinationSearchState extends State<DestinationSearch> {
   String? _selectedDestination;
   String? _selectedCity;
-  final FocusNode _focusNode = FocusNode(); // Add a FocusNode
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    // Add a listener to the FocusNode
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
-        // Do something when the SearchField loses focus
         setState(() {});
       }
     });
@@ -28,8 +26,7 @@ class _DestinationSearchState extends State<DestinationSearch> {
 
   @override
   void dispose() {
-    _focusNode
-        .dispose(); // Dispose of the FocusNode when the widget is disposed
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -37,7 +34,7 @@ class _DestinationSearchState extends State<DestinationSearch> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus(); // Unfocus any focused widget
+        FocusScope.of(context).unfocus();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -48,37 +45,40 @@ class _DestinationSearchState extends State<DestinationSearch> {
             style: TextStyle(color: Colors.black),
           ),
         ),
-        body: Container(
+        body: SizedBox(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               DropMenuWithSearchField(
-                  items: DestinationData.destinations.keys.toList(),
-                  selectedValue: _selectedDestination,
-                  onChanged: (selectedValue) {
-                    setState(() {
-                      _selectedDestination = selectedValue;
-                    });
-                  },
-                  hintText: "Select a Destination",
-                  isDisabled: false),
+                items: DestinationData.destinations.keys.toList(),
+                selectedValue: _selectedDestination,
+                onChanged: (selectedValue) {
+                  setState(() {
+                    _selectedDestination = selectedValue;
+                  });
+                },
+                hintText: "Destination",
+                header: "Select Destination",
+                isDisabled: false,
+              ),
+              const SizedBox(height: 16.0),
               DropMenuWithSearchField(
-                  items: _selectedDestination == null
-                      ? []
-                      : DestinationData.destinations[_selectedDestination!]
-                              ?.toList() ??
-                          [],
-                  selectedValue: _selectedCity,
-                  onChanged: (selectedValue) {
-                    setState(() {
-                      _selectedCity = selectedValue;
-                    });
-                  },
-                  hintText: "Select a City",
-                  isDisabled: _selectedDestination == null),
+                items: _selectedDestination == null
+                    ? []
+                    : DestinationData.destinations[_selectedDestination!]?.toList() ?? [],
+                selectedValue: _selectedCity,
+                onChanged: (selectedValue) {
+                  setState(() {
+                    _selectedCity = selectedValue;
+                  });
+                },
+                hintText: "City",
+                header: "Select City",
+                isDisabled: _selectedDestination == null,
+              ),
+              const Spacer(), // This pushes the bottom container to the bottom of the screen
               Container(
                 height: 90,
-                padding: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
@@ -88,8 +88,7 @@ class _DestinationSearchState extends State<DestinationSearch> {
                     _selectedDestination == null
                         ? const Text(
                             'Please select a destination to continue',
-                            style:
-                                TextStyle(fontSize: 16, color: Colors.blueGrey),
+                            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
                           )
                         : Text(
                             _selectedDestination!,

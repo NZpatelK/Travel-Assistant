@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:searchfield/searchfield.dart';
 
 class DropMenuWithSearchField extends StatefulWidget {
@@ -6,6 +7,7 @@ class DropMenuWithSearchField extends StatefulWidget {
   final String? selectedValue;
   final ValueChanged<String?> onChanged;
   final String hintText;
+  final String header;
   final bool isDisabled;
 
   const DropMenuWithSearchField(
@@ -14,6 +16,7 @@ class DropMenuWithSearchField extends StatefulWidget {
       required this.selectedValue,
       required this.onChanged,
       required this.hintText,
+      required this.header,
       required this.isDisabled});
 
   @override
@@ -53,14 +56,14 @@ class _DropMenuWithSearchFieldState extends State<DropMenuWithSearchField> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(20),
+           Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
             child: Text(
-              "Select a Destination",
-              style: TextStyle(
+              widget.header,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
-                color: Colors.blueGrey,
+                color: Color.fromARGB(255, 67, 84, 93),
               ),
             ),
           ),
@@ -83,6 +86,13 @@ class _DropMenuWithSearchFieldState extends State<DropMenuWithSearchField> {
               hint: widget.hintText,
               searchInputDecoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.blueGrey.shade800,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.blueGrey.shade200,
                     width: 2,
