@@ -13,6 +13,9 @@ class DestinationSearch extends StatefulWidget {
 class _DestinationSearchState extends State<DestinationSearch> {
   String? _selectedDestination;
   String? _selectedCity;
+  DateTime? _arrivalDate;
+  DateTime? _departureDate;
+
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -29,6 +32,24 @@ class _DestinationSearchState extends State<DestinationSearch> {
   void dispose() {
     _focusNode.dispose();
     super.dispose();
+  }
+
+  bool checkInput() {
+    if (_selectedDestination == null ||
+        _selectedCity == null ||
+        _arrivalDate == null ||
+        _departureDate == null) {
+      return false;
+    }
+    return true;
+  }
+
+  String outputDisplay() {
+    final arrival = _arrivalDate;
+    final departure = _departureDate;
+    if (arrival == null || departure == null) return '';
+    final days = departure.difference(arrival).inDays;
+    return '$_selectedDestination - $_selectedCity, total days - $days';
   }
 
   @override
@@ -78,7 +99,24 @@ class _DestinationSearchState extends State<DestinationSearch> {
                 header: "Select City",
                 isDisabled: _selectedDestination == null,
               ),
-              const DatePicker(),
+              DatePicker(
+                title: "Arrival Date",
+                onDateChanged: (selectedDate) {
+                  setState(() {
+                    _arrivalDate = selectedDate;
+                  });
+                },
+                selectedDate: _arrivalDate ?? DateTime.now(),
+              ),
+              DatePicker(
+                title: "Departure Date",
+                onDateChanged: (selectedDate) {
+                  setState(() {
+                    _departureDate = selectedDate;
+                  });
+                },
+                selectedDate: _departureDate ?? DateTime.now(),
+              ),
               const Spacer(), // This pushes the bottom container to the bottom of the screen
               Container(
                 height: 90,
@@ -90,14 +128,14 @@ class _DestinationSearchState extends State<DestinationSearch> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _selectedDestination == null
+                    !checkInput()
                         ? const Text(
                             'Please select a destination to continue',
                             style:
                                 TextStyle(fontSize: 16, color: Colors.blueGrey),
                           )
                         : Text(
-                            _selectedDestination!,
+                            outputDisplay(),
                             style: TextStyle(
                                 color: Colors.grey.shade800,
                                 fontSize: 16,
