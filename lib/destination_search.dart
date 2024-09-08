@@ -142,7 +142,28 @@ class _DestinationSearchState extends State<DestinationSearch> {
                                 fontWeight: FontWeight.w600),
                           ),
                     MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (checkInput()) {
+                          Navigator.pushNamed(
+                            context,
+                            '/display',
+                            arguments: {
+                              'destination': _selectedDestination,
+                              'city': _selectedCity,
+                              'arrival': _arrivalDate,
+                              'departure': _departureDate
+                            },
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'Please select a destination to continue'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        }
+                      },
                       minWidth: 50,
                       height: 50,
                       color: const Color.fromARGB(255, 27, 132, 251),

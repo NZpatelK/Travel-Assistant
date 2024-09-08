@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/destination_search.dart';
+import 'package:myapp/display_travel_plan.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +19,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const DestinationSearch(),
+      routes: {
+        // '/destination_search': (context) => const DestinationSearch(),
+        '/display': (context) => const DisplayTravelPlan(),
+      },
     );
   }
 }
