@@ -5,7 +5,7 @@ late final ChatSession _chatSession;
 
 void initModel() async {
   _model = GenerativeModel(
-      model: 'gemini-pro', apiKey: ''
+      model: 'gemini-pro', apiKey:''
       // apiKey: const String.fromEnvironment('api_key'),
       );
   _chatSession = _model.startChat();

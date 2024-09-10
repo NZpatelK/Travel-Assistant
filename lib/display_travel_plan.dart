@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myapp/generate_travel_plan.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-
 class DisplayTravelPlan extends StatefulWidget {
   const DisplayTravelPlan({super.key});
 
@@ -12,17 +11,27 @@ class DisplayTravelPlan extends StatefulWidget {
 
 class _DisplayTravelPlanState extends State<DisplayTravelPlan> {
   String travelPlan = "Travel Plan is Generating...";
+  String? destination;
+  String? city;
+  DateTime? arrival;
+  DateTime? departure;
+  bool isGenerate = false;
 
   @override
   void initState() {
     super.initState();
     initModel();
+    setState(() {
+      isGenerate = false;
+    });
   }
 
-  void getPlan(plan) async {
-    String result = await generateTravelPlan(plan);
+  void getPlan() async {
+    String result = await generateTravelPlan(
+        'Create list of options of what to visit place, activites, hidden gems, hidden place, interesting thing, food, drink, hotel, transport, fun and much that we should visit. here my travel detail. Destination: $destination, City: $city, Arrival: $arrival, Departure: $departure');
     setState(() {
       travelPlan = result;
+      isGenerate = true;
     });
   }
 
@@ -30,13 +39,14 @@ class _DisplayTravelPlanState extends State<DisplayTravelPlan> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
 
-    final destination = args['destination'];
-    final city = args['city'];
-    final arrival = args['arrival'];
-    final departure = args['departure'];
+    destination = args['destination'];
+    city = args['city'];
+    arrival = args['arrival'];
+    departure = args['departure'];
 
-    getPlan(
-        'Create a travel plan here my detail. Destination: $destination, City: $city, Arrival: $arrival, Departure: $departure');
+    if (!isGenerate) {
+      getPlan();
+    }
 
     return MaterialApp(
       home: Scaffold(
@@ -44,7 +54,7 @@ class _DisplayTravelPlanState extends State<DisplayTravelPlan> {
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(children: [
-            MarkdownBody(data:travelPlan),
+            MarkdownBody(data: travelPlan),
           ]),
         ),
       ),
