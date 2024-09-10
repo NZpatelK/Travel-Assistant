@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NewDesign extends StatefulWidget {
@@ -24,28 +25,12 @@ class _NewDesignState extends State<NewDesign> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue[500],
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color.fromARGB(255, 36, 36, 36)
-                                  .withOpacity(0.2),
-                              blurRadius: 10,
-                              offset: const Offset(0, 3),
-                            )
-                          ],
-                        ),
-                        padding: const EdgeInsets.all(14),
-                        child: const Icon(Icons.menu, color: Colors.white),
-                      ),
                       Text('Travel Assisant',
                           style: GoogleFonts.poppins(
                             color: Colors.white,
@@ -86,10 +71,17 @@ class _NewDesignState extends State<NewDesign> {
                   topRight: Radius.circular(40),
                 ),
                 child: Container(color: Colors.grey[200],
-                child: const Center(
+                padding: const EdgeInsets.all(20),
+                child: Center(
                   child: Column(
                     children: [
-                    Text("hello"),
+                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: const BoxDecoration(
+                          color: Colors.white
+                        ),
+                      )
                   ],),
                 ),),
               ),
