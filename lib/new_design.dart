@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/options.dart';
 
 class NewDesign extends StatefulWidget {
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:3985388548.
@@ -25,7 +25,8 @@ class _NewDesignState extends State<NewDesign> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
               child: Column(
                 children: [
                   Row(
@@ -70,22 +71,19 @@ class _NewDesignState extends State<NewDesign> {
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
                 ),
-                child: Container(color: Colors.grey[200],
-                padding: const EdgeInsets.all(20),
-                child: Center(
-                  child: Column(
+                child: Container(
+                  color: Colors.grey[200],
+                  padding: const EdgeInsets.all(20),
+                  child: const Column(
                     children: [
-                      const SizedBox(height: 20),
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: const BoxDecoration(
-                          color: Colors.white
-                        ),
-                      )
-                  ],),
-                ),),
+                      SizedBox(height: 20,),
+                      Options(),
+                      SizedBox(height: 20,),
+                      Options(),
+                    ],
+                  ),
+                ),
               ),
-              
             ),
           ],
         ),
