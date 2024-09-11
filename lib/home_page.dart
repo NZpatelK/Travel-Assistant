@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/options.dart';
 
-class NewDesign extends StatefulWidget {
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3985388548.
-  const NewDesign({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<NewDesign> createState() => _NewDesignState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _NewDesignState extends State<NewDesign> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +25,7 @@ class _NewDesignState extends State<NewDesign> {
           children: [
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
+                  const EdgeInsets.only(left: 30.0, right: 30.0, top: 50.0, bottom: 100),
               child: Column(
                 children: [
                   Row(
@@ -76,10 +75,18 @@ class _NewDesignState extends State<NewDesign> {
                   padding: const EdgeInsets.all(20),
                   child: const Column(
                     children: [
-                      SizedBox(height: 20,),
-                      Options(),
-                      SizedBox(height: 20,),
-                      Options(),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      Options(
+                        label: 'Random Journey Plan',
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Options(
+                        label: 'Custom Journey Plan',
+                      ),
                     ],
                   ),
                 ),
