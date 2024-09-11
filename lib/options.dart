@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 
 class Options extends StatefulWidget {
   final String label;
@@ -18,7 +19,7 @@ class _OptionsState extends State<Options> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        tra
+        
       },
       child: Container(
         padding: const EdgeInsets.all(16),
