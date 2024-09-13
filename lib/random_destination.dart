@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/options.dart';
+import 'package:myapp/destination_input.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class RandomDestination extends StatefulWidget {
+  const RandomDestination({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<RandomDestination> createState() => _RandomDestinationState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _RandomDestinationState extends State<RandomDestination> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +25,13 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50.0),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Travel Assisant',
+                      Text('Random Destionation',
                           style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontSize: 24,
@@ -75,18 +75,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(20),
                   child: const Column(
                     children: [
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Options(
-                        label: 'Random Journey Plan',
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Options(
-                        label: 'Custom Journey Plan',
-                      ),
+                      DestinationInput(),
                     ],
                   ),
                 ),

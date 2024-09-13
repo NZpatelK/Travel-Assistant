@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:myapp/random_destination.dart';
 
 class Options extends StatefulWidget {
   final String label;
@@ -19,7 +20,7 @@ class _OptionsState extends State<Options> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        
+        Get.to(() => const RandomDestination(), transition: Transition.leftToRightWithFade);
       },
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -35,12 +36,12 @@ class _OptionsState extends State<Options> {
           ],
         ),
         child: Row(children: [
-          const Icon(Icons.airplane_ticket, color: Colors.blue, size: 60),
+          const Icon(Icons.airplane_ticket, color: Colors.blue, size: 50),
           const SizedBox(width: 20),
           Text(
             widget.label,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 16,
               color: const Color.fromARGB(255, 54, 54, 54),
               fontWeight: FontWeight.w600,
               fontFamily: GoogleFonts.poppins().fontFamily,
