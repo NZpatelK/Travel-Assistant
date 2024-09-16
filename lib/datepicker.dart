@@ -58,17 +58,17 @@ class _DatePickerState extends State<DatePicker> {
   }
 
   Future<void> _selectDate() async {
-    DateTime? _picked = await showDatePicker(
+    DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
 
-    if (_picked != null) {
+    if (picked != null) {
       setState(() {
-        _dateController.text = DateFormat('dd/MM/yyyy').format(_picked);
-        widget.onDateChanged(_picked);
+        _dateController.text = DateFormat('dd/MM/yyyy').format(picked);
+        widget.onDateChanged(picked);
       });
     }
   }

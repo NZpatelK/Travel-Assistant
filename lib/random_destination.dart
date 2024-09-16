@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/destination_input.dart';
 
@@ -72,10 +71,33 @@ class _RandomDestinationState extends State<RandomDestination> {
                 ),
                 child: Container(
                   color: Colors.grey[200],
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(50),
                   child: const Column(
                     children: [
-                      DestinationInput(),
+                      DestinationInput(
+                        InputType: "num",
+                        Label: "number of destinations",
+                      ),
+                      SizedBox(height: 30),
+                      DestinationInput(
+                        InputType: "num",
+                        Label: "Total number of days",
+                      ),
+                      SizedBox(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: null,
+                            child: Text("Travel Itinerary"),
+                          ),
+                          SizedBox(width: 20),
+                          ElevatedButton(
+                            onPressed: null,
+                            child: Text("List of Options"),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
