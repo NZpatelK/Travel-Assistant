@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/cupertino_picker.dart';
 import 'package:myapp/destination_input.dart';
 
 class RandomDestination extends StatefulWidget {
@@ -71,20 +74,42 @@ class _RandomDestinationState extends State<RandomDestination> {
                 ),
                 child: Container(
                   color: Colors.grey[200],
-                  padding: const EdgeInsets.all(50),
-                  child: const Column(
+                  padding: const EdgeInsets.all(30),
+                  child: Column(
                     children: [
-                      DestinationInput(
+                      const DestinationInput(
                         InputType: "num",
                         Label: "number of destinations",
                       ),
-                      SizedBox(height: 30),
-                      DestinationInput(
+                      const SizedBox(height: 30),
+                      const DestinationInput(
                         InputType: "num",
                         Label: "Total number of days",
                       ),
-                      SizedBox(height: 30),
-                      Row(
+                      const SizedBox(height: 30),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("January"),
+                            Cupertinopicker(),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(

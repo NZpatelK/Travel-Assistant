@@ -49,7 +49,7 @@ class _DropMenuWithSearchFieldState extends State<DropMenuWithSearchField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      // width: double.maxFinite,
       // height: MediaQuery.of(context).size.height * 0.7,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
