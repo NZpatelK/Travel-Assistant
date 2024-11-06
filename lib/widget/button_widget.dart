@@ -12,6 +12,6 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CupertinoButton(
         onPressed: (onClicked),
-        child:  Text('Change', style: TextStyle(fontSize: 14, color: Colors.blue[500]),),
+        child:  Text('Change', style: TextStyle(fontSize: 16, color: Colors.blue[500]),),
       );
 }

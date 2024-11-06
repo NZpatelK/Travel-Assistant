@@ -1,33 +1,40 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart';
+import 'package:myapp/widget/button_widget.dart';
 
-import 'widget/button_widget.dart';
+class OptionsV2 extends StatefulWidget {
+  final List<String> items;
+  final String? selectedValue;
+  final ValueChanged<String?> onChanged;
 
-class Cupertinopicker extends StatefulWidget {
-  const Cupertinopicker({super.key});
+  const OptionsV2(
+      {super.key,
+      required this.items,
+      required this.selectedValue,
+      required this.onChanged});
 
   @override
-  State<Cupertinopicker> createState() => _CupertinopickerState();
+  State<OptionsV2> createState() => _OptionsV2State();
 }
 
-class _CupertinopickerState extends State<Cupertinopicker> {
+class _OptionsV2State extends State<OptionsV2> {
   int index = 0;
 
-  static List<String> months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
+  // static List<String> months = [
+  //   'January',
+  //   'February',
+  //   'March',
+  //   'April',
+  //   'May',
+  //   'June',
+  //   'July',
+  //   'August',
+  //   'September',
+  //   'October',
+  //   'November',
+  //   'December'
+  // ];
 
   @override
   Widget build(BuildContext context) => Column(
@@ -38,7 +45,7 @@ class _CupertinopickerState extends State<Cupertinopicker> {
               context,
               child: buildCustomPicker(),
               onClicked: () {
-                final value = months[index];
+                final value = widget.items[index];
                 Utils.showSnackBar(context, 'Selected "$value"');
                 Navigator.pop(context);
               },
@@ -57,10 +64,10 @@ class _CupertinopickerState extends State<Cupertinopicker> {
             background: Colors.blue[500]!.withOpacity(0.12),
           ),
           children: Utils.modelBuilder<String>(
-            months,
+            widget.items,
             (index, value) {
               final isSelected = this.index == index;
-              final color = isSelected ?  Colors.blue[500] : Colors.black;
+              final color = isSelected ? Colors.blue[500] : Colors.black;
               return Center(
                 child: Text(
                   value,

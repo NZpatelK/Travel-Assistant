@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/cupertino_picker.dart';
 import 'package:myapp/destination_input.dart';
+import 'package:myapp/options_v2.dart';
 
 class RandomDestination extends StatefulWidget {
   const RandomDestination({super.key});
@@ -100,11 +100,27 @@ class _RandomDestinationState extends State<RandomDestination> {
                             width: 2.0,
                           ),
                         ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("January"),
-                            Cupertinopicker(),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 10), // Adds 10px top padding
+                              child: Text(
+                                "Select Department Month",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "January",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                OptionsV2( items: ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
