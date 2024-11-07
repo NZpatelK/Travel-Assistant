@@ -1,15 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/options.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class CustomDestination extends StatefulWidget {
+  const CustomDestination({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<CustomDestination> createState() => _CustomDestinationState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _CustomDestinationState extends State<CustomDestination> {
+  final List destinations = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+  ];
+
+  void updateOrderDestinations(int oldIndex, int newIndex) {
+    setState(() {
+      if (oldIndex < newIndex) {
+        newIndex -= 1;
+      }
+      final destination = destinations.removeAt(oldIndex);
+      destinations.insert(newIndex, destination);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +46,13 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50.0),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Travel Assisant',
+                      Text('Custom Destination',
                           style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontSize: 24,
@@ -72,29 +93,42 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Container(
                   color: Colors.grey[200],
-                  padding: const EdgeInsets.all(20),
-                  child: const Column(
+                  padding: const EdgeInsets.all(30),
+                  child: ReorderableListView(
                     children: [
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Options(
-                        label: 'Random Journey Plan',
-                        pageName: 'random'
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Options(
-                        label: 'Custom Journey Plan',
-                        pageName: 'custom'
-                      ),
+                      for (final destination in destinations)
+                        ListTile(
+                          key: Key(destination),
+                          title: Text(destination),
+                        )
                     ],
+                    onReorder: (oldIndex, newIndex) =>
+                        updateOrderDestinations(oldIndex, newIndex),
                   ),
                 ),
               ),
             ),
           ],
+        ),
+      ),
+      floatingActionButton: Align(
+        alignment: Alignment.bottomRight,
+        child: ElevatedButton.icon(
+          onPressed: () {
+            // Add your action here to add a new destination
+          },
+          icon: const Icon(Icons.add, color: Colors.white,), // Icon for button
+          label: const Text(
+            'Add New Destination',
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue, // Button color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+          ),
         ),
       ),
     );

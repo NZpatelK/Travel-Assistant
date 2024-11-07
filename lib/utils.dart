@@ -25,11 +25,12 @@ class Utils {
     BuildContext context, {
     required Widget child,
     required VoidCallback onClicked,
+    required String title
   }) =>
       showCupertinoModalPopup(
         context: context,
         builder: (context) => CupertinoActionSheet(
-          title: const Text("Select Month", style: TextStyle(fontSize: 18)),
+          title: Text(title, style: const TextStyle(fontSize: 18)),
           actions: [
             child,
           ],

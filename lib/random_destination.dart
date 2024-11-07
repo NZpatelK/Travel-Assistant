@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/destination_input.dart';
-import 'package:myapp/options_v2.dart';
+import 'package:myapp/select_box.dart';
 
 class RandomDestination extends StatefulWidget {
   const RandomDestination({super.key});
@@ -13,6 +11,13 @@ class RandomDestination extends StatefulWidget {
 }
 
 class _RandomDestinationState extends State<RandomDestination> {
+  String _selectedDepartmentMonth = 'January';
+  String _selectedReturnMonth = 'January';
+  int? _inputDays;
+  int? _inputNumDestionation;
+  int? _minNumDays;
+  int? _maxNumDays;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,53 +82,122 @@ class _RandomDestinationState extends State<RandomDestination> {
                   padding: const EdgeInsets.all(30),
                   child: Column(
                     children: [
-                      const DestinationInput(
-                        InputType: "num",
-                        Label: "number of destinations",
+                      DestinationInput(
+                        inputType: "num",
+                        label: "number of destinations",
+                        inputChanged: (value) {
+                          setState(() {
+                            _inputNumDestionation = value! as int;
+                          });
+                        },
                       ),
                       const SizedBox(height: 30),
-                      const DestinationInput(
-                        InputType: "num",
-                        Label: "Total number of days",
+                      DestinationInput(
+                        inputType: "num",
+                        label: "Total number of days",
+                        inputChanged: (value) {
+                          setState(() {
+                            _inputDays = value! as int;
+                          });
+                        },
                       ),
                       const SizedBox(height: 30),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 2.0,
-                          ),
-                        ),
-                        child: const Column(
+                        alignment: Alignment.centerLeft,
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: 10), // Adds 10px top padding
-                              child: Text(
-                                "Select Department Month",
-                                style: TextStyle(fontSize: 12),
-                              ),
+                            const Text(
+                              "How many days do you want to spend at each destination? (min - max)",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.black),
                             ),
+                            const SizedBox(height: 5),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "January",
-                                  style: TextStyle(fontSize: 16),
+                                Expanded(
+                                  child: DestinationInput(
+                                    inputType: "num",
+                                    label: "Min days",
+                                    inputChanged: (value) => setState(() {
+                                      _minNumDays =
+                                          int.tryParse(value ?? '') ?? 0;
+                                    }),
+                                  ),
                                 ),
-                                OptionsV2( items: ),
+                                const Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 50),
+                                  child: Text(
+                                    "To",
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.black),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: DestinationInput(
+                                    inputType: "num",
+                                    label: "Max days",
+                                    inputChanged: (value) => setState(() {
+                                      _maxNumDays =
+                                          int.tryParse(value ?? '') ?? 0;
+                                    }),
+                                  ),
+                                ),
                               ],
                             ),
                           ],
                         ),
                       ),
+                      const SizedBox(height: 30),
+                      SelectBox(
+                          items: const [
+                            'January',
+                            'February',
+                            'March',
+                            'April',
+                            'May',
+                            'June',
+                            'July',
+                            'August',
+                            'September',
+                            'October',
+                            'November',
+                            'December'
+                          ],
+                          selectedValue: _selectedDepartmentMonth,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedDepartmentMonth = value!;
+                            });
+                          },
+                          titleLabel: 'Select Month',
+                          headerLabel: 'Select Department Month'),
+                      const SizedBox(height: 30),
+                      SelectBox(
+                          items: const [
+                            'January',
+                            'February',
+                            'March',
+                            'April',
+                            'May',
+                            'June',
+                            'July',
+                            'August',
+                            'September',
+                            'October',
+                            'November',
+                            'December'
+                          ],
+                          selectedValue: _selectedReturnMonth,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedReturnMonth = value!;
+                            });
+                          },
+                          titleLabel: 'Select Month',
+                          headerLabel: 'Select Return Month'),
                       const SizedBox(height: 30),
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:myapp/custom_destination.dart';
 import 'package:myapp/random_destination.dart';
 
 class Options extends StatefulWidget {
   final String label;
+  final String pageName;
 
   const Options({
     super.key,
     required this.label,
+    required this.pageName,
   });
 
   @override
@@ -20,7 +23,7 @@ class _OptionsState extends State<Options> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => const RandomDestination(), transition: Transition.leftToRightWithFade);
+        Get.to(() => widget.pageName == "random" ? const RandomDestination() : const CustomDestination(), transition: Transition.leftToRightWithFade);
       },
       child: Container(
         padding: const EdgeInsets.all(16),

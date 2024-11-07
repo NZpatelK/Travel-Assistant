@@ -7,12 +7,16 @@ class OptionsV2 extends StatefulWidget {
   final List<String> items;
   final String? selectedValue;
   final ValueChanged<String?> onChanged;
+  final String? titleLabel;
+  final bool? isShowSnackBar;
 
   const OptionsV2(
       {super.key,
       required this.items,
       required this.selectedValue,
-      required this.onChanged});
+      required this.onChanged,
+      required this.titleLabel,
+      this.isShowSnackBar});
 
   @override
   State<OptionsV2> createState() => _OptionsV2State();
@@ -21,32 +25,21 @@ class OptionsV2 extends StatefulWidget {
 class _OptionsV2State extends State<OptionsV2> {
   int index = 0;
 
-  // static List<String> months = [
-  //   'January',
-  //   'February',
-  //   'March',
-  //   'April',
-  //   'May',
-  //   'June',
-  //   'July',
-  //   'August',
-  //   'September',
-  //   'October',
-  //   'November',
-  //   'December'
-  // ];
-
   @override
   Widget build(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ButtonWidget(
             onClicked: () => Utils.showSheet(
+              title: widget.titleLabel!,
               context,
               child: buildCustomPicker(),
               onClicked: () {
                 final value = widget.items[index];
-                Utils.showSnackBar(context, 'Selected "$value"');
+                widget.onChanged(value);
+                if (widget.isShowSnackBar ?? false) {
+                  Utils.showSnackBar(context, 'Selected "$value"');
+                }
                 Navigator.pop(context);
               },
             ),
@@ -58,7 +51,7 @@ class _OptionsV2State extends State<OptionsV2> {
         height: 200,
         child: CupertinoPicker(
           itemExtent: 40,
-          diameterRatio: 0.8,
+          diameterRatio: 1,
           onSelectedItemChanged: (index) => setState(() => this.index = index),
           selectionOverlay: CupertinoPickerDefaultSelectionOverlay(
             background: Colors.blue[500]!.withOpacity(0.12),

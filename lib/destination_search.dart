@@ -7,7 +7,7 @@ class DestinationSearch extends StatefulWidget {
   const DestinationSearch({super.key});
 
   @override
-  _DestinationSearchState createState() => _DestinationSearchState();
+  State<DestinationSearch> createState() => _DestinationSearchState();
 }
 
 class _DestinationSearchState extends State<DestinationSearch> {
