@@ -5,7 +5,8 @@ import 'package:myapp/destination_input.dart';
 import 'package:myapp/select_box.dart';
 
 class AddNewDestination extends StatefulWidget {
-  const AddNewDestination({super.key});
+  final Function(String, String, int, int) onAddDestination;
+  const AddNewDestination({super.key, required this.onAddDestination});
 
   @override
   State<AddNewDestination> createState() => _AddNewDestinationState();
@@ -14,7 +15,88 @@ class AddNewDestination extends StatefulWidget {
 class _AddNewDestinationState extends State<AddNewDestination> {
   final List<Map<String, List<String>>> destinationList = [
     {
+      'Argentina': [
+        'Buenos Aires',
+        'Córdoba',
+        'Mendoza',
+        'Rosario',
+        'Bariloche'
+      ]
+    },
+    {
+      'Australia': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide']
+    },
+    {
+      'Brazil': [
+        'Rio de Janeiro',
+        'São Paulo',
+        'Brasília',
+        'Salvador',
+        'Fortaleza'
+      ]
+    },
+    {
+      'Canada': ['Toronto', 'Vancouver', 'Montreal', 'Ottawa', 'Calgary']
+    },
+    {
+      'China': ['Beijing', 'Shanghai', 'Hong Kong', 'Xi’an', 'Chengdu']
+    },
+    {
+      'Egypt': ['Cairo', 'Alexandria', 'Luxor', 'Sharm El Sheikh', 'Giza']
+    },
+    {
       'France': ['Paris', 'Nice', 'Lyon', 'Marseille', 'Bordeaux']
+    },
+    {
+      'Germany': ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne']
+    },
+    {
+      'Greece': ['Athens', 'Santorini', 'Mykonos', 'Crete', 'Rhodes']
+    },
+    {
+      'India': ['New Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Kolkata']
+    },
+    {
+      'Italy': ['Rome', 'Venice', 'Florence', 'Milan', 'Naples']
+    },
+    {
+      'Japan': ['Tokyo', 'Osaka', 'Kyoto', 'Hokkaido', 'Fukuoka']
+    },
+    {
+      'Mexico': ['Mexico City', 'Cancún', 'Guadalajara', 'Monterrey', 'Puebla']
+    },
+    {
+      'Russia': [
+        'Moscow',
+        'Saint Petersburg',
+        'Sochi',
+        'Kazan',
+        'Yekaterinburg'
+      ]
+    },
+    {
+      'South Africa': [
+        'Cape Town',
+        'Johannesburg',
+        'Durban',
+        'Pretoria',
+        'Port Elizabeth'
+      ]
+    },
+    {
+      'Spain': ['Madrid', 'Barcelona', 'Seville', 'Valencia', 'Granada']
+    },
+    {
+      'Thailand': ['Bangkok', 'Chiang Mai', 'Phuket', 'Ayutthaya', 'Pattaya']
+    },
+    {
+      'United Arab Emirates': [
+        'Dubai',
+        'Abu Dhabi',
+        'Sharjah',
+        'Ajman',
+        'Ras Al Khaimah'
+      ]
     },
     {
       'United Kingdom': [
@@ -33,116 +115,179 @@ class _AddNewDestinationState extends State<AddNewDestination> {
         'San Francisco',
         'Miami'
       ]
-    },
-    {
-      'Japan': ['Tokyo', 'Osaka', 'Kyoto', 'Hokkaido', 'Fukuoka']
-    },
-    {
-      'Australia': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide']
-    },
-    {
-      'Italy': ['Rome', 'Venice', 'Florence', 'Milan', 'Naples']
-    },
-    {
-      'Spain': ['Madrid', 'Barcelona', 'Seville', 'Valencia', 'Granada']
-    },
-    {
-      'Germany': ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne']
-    },
-    {
-      'Canada': ['Toronto', 'Vancouver', 'Montreal', 'Ottawa', 'Calgary']
-    },
-    {
-      'Brazil': [
-        'Rio de Janeiro',
-        'São Paulo',
-        'Brasília',
-        'Salvador',
-        'Fortaleza'
-      ]
-    },
-    {
-      'Mexico': ['Mexico City', 'Cancún', 'Guadalajara', 'Monterrey', 'Puebla']
-    },
-    {
-      'India': ['New Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Kolkata']
-    },
-    {
-      'China': ['Beijing', 'Shanghai', 'Hong Kong', 'Xi’an', 'Chengdu']
-    },
-    {
-      'South Africa': [
-        'Cape Town',
-        'Johannesburg',
-        'Durban',
-        'Pretoria',
-        'Port Elizabeth'
-      ]
-    },
-    {
-      'Egypt': ['Cairo', 'Alexandria', 'Luxor', 'Sharm El Sheikh', 'Giza']
-    },
-    {
-      'Argentina': [
-        'Buenos Aires',
-        'Córdoba',
-        'Mendoza',
-        'Rosario',
-        'Bariloche'
-      ]
-    },
-    {
-      'Thailand': ['Bangkok', 'Chiang Mai', 'Phuket', 'Ayutthaya', 'Pattaya']
-    },
-    {
-      'United Arab Emirates': [
-        'Dubai',
-        'Abu Dhabi',
-        'Sharjah',
-        'Ajman',
-        'Ras Al Khaimah'
-      ]
-    },
-    {
-      'Russia': [
-        'Moscow',
-        'Saint Petersburg',
-        'Sochi',
-        'Kazan',
-        'Yekaterinburg'
-      ]
-    },
-    {
-      'Greece': ['Athens', 'Santorini', 'Mykonos', 'Crete', 'Rhodes']
     }
   ];
+
+  String selectedCountry = 'Argentina';
+  String? selectedCity;
+  List<String> cities = [];
+  int? _minNumDays;
+  int? _maxNumDays;
+
+  @override
+  void initState() {
+    super.initState();
+    updateCities();
+  }
+
+  void updateCities() {
+    // Find the map that contains the selected country and update the list of cities
+    final countryMap = destinationList.firstWhere(
+      (map) => map.containsKey(selectedCountry),
+      orElse: () => {},
+    );
+    setState(() {
+      cities = countryMap[selectedCountry] ?? [];
+      selectedCity = cities[0];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-      height: 400.0, // Set custom height for the dialog
-      child: Column(children: [
-        Text(
-          "Add New Destination",
-          style: GoogleFonts.poppins(color: Colors.black, fontSize: 20),
-        ),
-        const SizedBox(height: 30),
-        SelectBox(
-          items: destinationList.map((map) => map.keys.first).toList(),
-          selectedValue: "hello",
-          onChanged: (value) {},
-          titleLabel: 'Destination',
-          headerLabel: "Select Destination1",
-        ),
-        const SizedBox(height: 30),
-        SelectBox(
-          items: destinationList.map((map) => map.keys.first).toList(),
-          selectedValue: "hello",
-          onChanged: (value) {},
-          titleLabel: 'Destination',
-          headerLabel: "Select Destination2",
-        ),
-      ]),
+      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+      height: 600,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            "Add New Destination",
+            style: GoogleFonts.poppins(
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(height: 30),
+          SelectBox(
+            items: destinationList.map((map) => map.keys.first).toList(),
+            selectedValue: selectedCountry,
+            onChanged: (value) {
+              setState(() {
+                selectedCountry = value!;
+                updateCities();
+              });
+            },
+            titleLabel: 'Country',
+            headerLabel: "Select Country",
+          ),
+          const SizedBox(height: 30),
+          SelectBox(
+            items: cities,
+            selectedValue: (selectedCity?.isEmpty ?? true) ||
+                    !cities.contains(selectedCity)
+                ? cities.first
+                : selectedCity!,
+            onChanged: (value) {
+              setState(() {
+                selectedCity = value;
+              });
+            },
+            titleLabel: 'City',
+            headerLabel: "Select Destination",
+          ),
+          const SizedBox(height: 20),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "How many days do you want to spend at each destination? (min - max)",
+                  style: TextStyle(fontSize: 16, color: Colors.black),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: DestinationInput(
+                        inputType: "num",
+                        label: "Min days",
+                        inputChanged: (value) => setState(() {
+                          _minNumDays = int.tryParse(value ?? '') ?? 0;
+                        }),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 50),
+                      child: Text(
+                        "To",
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Expanded(
+                      child: DestinationInput(
+                        inputType: "num",
+                        label: "Max days",
+                        inputChanged: (value) => setState(() {
+                          _maxNumDays = int.tryParse(value ?? '') ?? 0;
+                        }),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                  width: 200, // Fixed width
+                  height: 50, // Fixed height
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle cancel action
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          Colors.transparent, // Set transparent background
+                      shadowColor:
+                          Colors.transparent, // Remove shadow if desired
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: const BorderSide(
+                            color: Color.fromARGB(
+                                255, 211, 33, 20)), // Optional border color
+                      ),
+                    ),
+                    child: const Text(
+                      "Cancel",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Color.fromARGB(255, 211, 33, 20),
+                      ),
+                    ),
+                  )),
+              const SizedBox(width: 20), // Add spacing between buttons
+              SizedBox(
+                width: 200, // Fixed width
+                height: 50, // Fixed height
+                child: ElevatedButton(
+                  onPressed: () {
+                    widget.onAddDestination(selectedCity ?? "", selectedCountry,
+                        _minNumDays ?? 0, _maxNumDays ?? 0);
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    backgroundColor: Colors.blue[500],
+                  ),
+                  child: const Text(
+                    "Add",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
