@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/destination_data.dart';
 import 'package:myapp/destination_input.dart';
 import 'package:myapp/select_box.dart';
 
@@ -13,112 +13,10 @@ class AddNewDestination extends StatefulWidget {
 }
 
 class _AddNewDestinationState extends State<AddNewDestination> {
-  final List<Map<String, List<String>>> destinationList = [
-    {
-      'Argentina': [
-        'Buenos Aires',
-        'Córdoba',
-        'Mendoza',
-        'Rosario',
-        'Bariloche'
-      ]
-    },
-    {
-      'Australia': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide']
-    },
-    {
-      'Brazil': [
-        'Rio de Janeiro',
-        'São Paulo',
-        'Brasília',
-        'Salvador',
-        'Fortaleza'
-      ]
-    },
-    {
-      'Canada': ['Toronto', 'Vancouver', 'Montreal', 'Ottawa', 'Calgary']
-    },
-    {
-      'China': ['Beijing', 'Shanghai', 'Hong Kong', 'Xi’an', 'Chengdu']
-    },
-    {
-      'Egypt': ['Cairo', 'Alexandria', 'Luxor', 'Sharm El Sheikh', 'Giza']
-    },
-    {
-      'France': ['Paris', 'Nice', 'Lyon', 'Marseille', 'Bordeaux']
-    },
-    {
-      'Germany': ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne']
-    },
-    {
-      'Greece': ['Athens', 'Santorini', 'Mykonos', 'Crete', 'Rhodes']
-    },
-    {
-      'India': ['New Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Kolkata']
-    },
-    {
-      'Italy': ['Rome', 'Venice', 'Florence', 'Milan', 'Naples']
-    },
-    {
-      'Japan': ['Tokyo', 'Osaka', 'Kyoto', 'Hokkaido', 'Fukuoka']
-    },
-    {
-      'Mexico': ['Mexico City', 'Cancún', 'Guadalajara', 'Monterrey', 'Puebla']
-    },
-    {
-      'Russia': [
-        'Moscow',
-        'Saint Petersburg',
-        'Sochi',
-        'Kazan',
-        'Yekaterinburg'
-      ]
-    },
-    {
-      'South Africa': [
-        'Cape Town',
-        'Johannesburg',
-        'Durban',
-        'Pretoria',
-        'Port Elizabeth'
-      ]
-    },
-    {
-      'Spain': ['Madrid', 'Barcelona', 'Seville', 'Valencia', 'Granada']
-    },
-    {
-      'Thailand': ['Bangkok', 'Chiang Mai', 'Phuket', 'Ayutthaya', 'Pattaya']
-    },
-    {
-      'United Arab Emirates': [
-        'Dubai',
-        'Abu Dhabi',
-        'Sharjah',
-        'Ajman',
-        'Ras Al Khaimah'
-      ]
-    },
-    {
-      'United Kingdom': [
-        'London',
-        'Edinburgh',
-        'Manchester',
-        'Bristol',
-        'Liverpool'
-      ]
-    },
-    {
-      'United States': [
-        'New York',
-        'Los Angeles',
-        'Chicago',
-        'San Francisco',
-        'Miami'
-      ]
-    }
-  ];
+  final List<Map<String, List<String>>> destinationList =
+      DestinationData.destination;
 
-  String selectedCountry = 'Argentina';
+  String selectedCountry = DestinationData.destination[0].keys.first;
   String? selectedCity;
   List<String> cities = [];
   int? _minNumDays;

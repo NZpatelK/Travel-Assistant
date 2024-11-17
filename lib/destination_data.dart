@@ -1,24 +1,106 @@
 class DestinationData {
-  static final Map<String, List<String>> destinations = {
-    'New Zealand': ['Auckland', 'Wellington', 'Christchurch'],
-    'Australia': ['Sydney', 'Melbourne', 'Brisbane'],
-    'United States': ['New York', 'Los Angeles', 'Chicago'],
-    'Canada': ['Toronto', 'Vancouver', 'Montreal'],
-    'United Kingdom': ['London', 'Manchester', 'Birmingham'],
-    'Germany': ['Berlin', 'Munich', 'Frankfurt'],
-    'Japan': ['Tokyo', 'Osaka', 'Kyoto'],
-    'France': ['Paris', 'Lyon', 'Marseille'],
-    'Italy': ['Rome', 'Milan', 'Florence'],
-    'Spain': ['Madrid', 'Barcelona', 'Valencia'],
-    'Brazil': ['Rio de Janeiro', 'São Paulo', 'Brasília'],
-    'India': ['Delhi', 'Mumbai', 'Bangalore'],
-    'China': ['Beijing', 'Shanghai', 'Guangzhou'],
-    'South Africa': ['Cape Town', 'Johannesburg', 'Durban'],
-    'Mexico': ['Mexico City', 'Guadalajara', 'Monterrey'],
-    'Russia': ['Moscow', 'Saint Petersburg', 'Kazan'],
-    'Argentina': ['Buenos Aires', 'Córdoba', 'Rosario'],
-    'Turkey': ['Istanbul', 'Ankara', 'Izmir'],
-    'Netherlands': ['Amsterdam', 'Rotterdam', 'The Hague'],
-    'Thailand': ['Bangkok', 'Chiang Mai', 'Phuket'],
-  };
+  static final List<Map<String, List<String>>> destination = [
+    {
+      'Argentina': [
+        'Buenos Aires',
+        'Córdoba',
+        'Mendoza',
+        'Rosario',
+        'Bariloche'
+      ]
+    },
+    {
+      'Australia': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide']
+    },
+    {
+      'Brazil': [
+        'Rio de Janeiro',
+        'São Paulo',
+        'Brasília',
+        'Salvador',
+        'Fortaleza'
+      ]
+    },
+    {
+      'Canada': ['Toronto', 'Vancouver', 'Montreal', 'Ottawa', 'Calgary']
+    },
+    {
+      'China': ['Beijing', 'Shanghai', 'Hong Kong', 'Xi’an', 'Chengdu']
+    },
+    {
+      'Egypt': ['Cairo', 'Alexandria', 'Luxor', 'Sharm El Sheikh', 'Giza']
+    },
+    {
+      'France': ['Paris', 'Nice', 'Lyon', 'Marseille', 'Bordeaux']
+    },
+    {
+      'Germany': ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne']
+    },
+    {
+      'Greece': ['Athens', 'Santorini', 'Mykonos', 'Crete', 'Rhodes']
+    },
+    {
+      'India': ['New Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Kolkata']
+    },
+    {
+      'Italy': ['Rome', 'Venice', 'Florence', 'Milan', 'Naples']
+    },
+    {
+      'Japan': ['Tokyo', 'Osaka', 'Kyoto', 'Hokkaido', 'Fukuoka']
+    },
+    {
+      'Mexico': ['Mexico City', 'Cancún', 'Guadalajara', 'Monterrey', 'Puebla']
+    },
+    {
+      'Russia': [
+        'Moscow',
+        'Saint Petersburg',
+        'Sochi',
+        'Kazan',
+        'Yekaterinburg'
+      ]
+    },
+    {
+      'South Africa': [
+        'Cape Town',
+        'Johannesburg',
+        'Durban',
+        'Pretoria',
+        'Port Elizabeth'
+      ]
+    },
+    {
+      'Spain': ['Madrid', 'Barcelona', 'Seville', 'Valencia', 'Granada']
+    },
+    {
+      'Thailand': ['Bangkok', 'Chiang Mai', 'Phuket', 'Ayutthaya', 'Pattaya']
+    },
+    {
+      'United Arab Emirates': [
+        'Dubai',
+        'Abu Dhabi',
+        'Sharjah',
+        'Ajman',
+        'Ras Al Khaimah'
+      ]
+    },
+    {
+      'United Kingdom': [
+        'London',
+        'Edinburgh',
+        'Manchester',
+        'Bristol',
+        'Liverpool'
+      ]
+    },
+    {
+      'United States': [
+        'New York',
+        'Los Angeles',
+        'Chicago',
+        'San Francisco',
+        'Miami'
+      ]
+    }
+  ];
 }

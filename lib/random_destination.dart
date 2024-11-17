@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/destination_input.dart';
+import 'package:myapp/month_data.dart';
 import 'package:myapp/select_box.dart';
 
 class RandomDestination extends StatefulWidget {
@@ -12,11 +13,11 @@ class RandomDestination extends StatefulWidget {
 
 class _RandomDestinationState extends State<RandomDestination> {
   String _selectedDepartmentMonth = 'January';
-  String _selectedReturnMonth = 'January';
-  int? _inputDays;
-  int? _inputNumDestionation;
-  int? _minNumDays;
-  int? _maxNumDays;
+  String _selectedReturnMonth = 'April';
+  String? _inputDays;
+  String? _inputNumDestionation;
+  String? _minNumDays;
+  String? _maxNumDays;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +88,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                         label: "number of destinations",
                         inputChanged: (value) {
                           setState(() {
-                            _inputNumDestionation = value! as int;
+                            _inputNumDestionation = value ?? "";
                           });
                         },
                       ),
@@ -97,7 +98,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                         label: "Total number of days",
                         inputChanged: (value) {
                           setState(() {
-                            _inputDays = value! as int;
+                            _inputDays = value ?? "";
                           });
                         },
                       ),
@@ -120,14 +121,12 @@ class _RandomDestinationState extends State<RandomDestination> {
                                     inputType: "num",
                                     label: "Min days",
                                     inputChanged: (value) => setState(() {
-                                      _minNumDays =
-                                          int.tryParse(value ?? '') ?? 0;
+                                      _minNumDays = value ?? '';
                                     }),
                                   ),
                                 ),
                                 const Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 50),
+                                  padding: EdgeInsets.symmetric(horizontal: 50),
                                   child: Text(
                                     "To",
                                     style: TextStyle(
@@ -140,8 +139,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                                     inputType: "num",
                                     label: "Max days",
                                     inputChanged: (value) => setState(() {
-                                      _maxNumDays =
-                                          int.tryParse(value ?? '') ?? 0;
+                                      _maxNumDays = value ?? "";
                                     }),
                                   ),
                                 ),
@@ -152,20 +150,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                       ),
                       const SizedBox(height: 30),
                       SelectBox(
-                          items: const [
-                            'January',
-                            'February',
-                            'March',
-                            'April',
-                            'May',
-                            'June',
-                            'July',
-                            'August',
-                            'September',
-                            'October',
-                            'November',
-                            'December'
-                          ],
+                          items: MonthData.months,
                           selectedValue: _selectedDepartmentMonth,
                           onChanged: (value) {
                             setState(() {
@@ -176,20 +161,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                           headerLabel: 'Select Department Month'),
                       const SizedBox(height: 30),
                       SelectBox(
-                          items: const [
-                            'January',
-                            'February',
-                            'March',
-                            'April',
-                            'May',
-                            'June',
-                            'July',
-                            'August',
-                            'September',
-                            'October',
-                            'November',
-                            'December'
-                          ],
+                          items: MonthData.months,
                           selectedValue: _selectedReturnMonth,
                           onChanged: (value) {
                             setState(() {
@@ -199,15 +171,28 @@ class _RandomDestinationState extends State<RandomDestination> {
                           titleLabel: 'Select Month',
                           headerLabel: 'Select Return Month'),
                       const SizedBox(height: 30),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
-                            onPressed: null,
-                            child: Text("Travel Itinerary"),
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/display',
+                                arguments: {
+                                  'numDestination': _inputNumDestionation,
+                                  'totalDays': _inputDays,
+                                  'minDays': _minNumDays,
+                                  'maxDays': _maxNumDays,
+                                  'leaveMonth': _selectedDepartmentMonth,
+                                  'returnMonth': _selectedReturnMonth,
+                                },
+                              );
+                            },
+                            child: const Text("Travel Itinerary"),
                           ),
-                          SizedBox(width: 20),
-                          ElevatedButton(
+                          const SizedBox(width: 20),
+                          const ElevatedButton(
                             onPressed: null,
                             child: Text("List of Options"),
                           ),
