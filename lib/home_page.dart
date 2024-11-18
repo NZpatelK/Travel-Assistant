@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/options.dart';
+import 'package:myapp/widget/options.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

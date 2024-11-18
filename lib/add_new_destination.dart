@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/destination_data.dart';
-import 'package:myapp/destination_input.dart';
-import 'package:myapp/select_box.dart';
+import 'package:myapp/data/destination_data.dart';
+import 'package:myapp/widget/destination_input.dart';
+import 'package:myapp/widget/select_box.dart';
 
 class AddNewDestination extends StatefulWidget {
   final Function(String, String, int, int) onAddDestination;

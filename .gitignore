@@ -43,3 +43,4 @@ app.*.map.json
 /android/app/release
 
 env.json
+lib/generate_travel_plan.dart

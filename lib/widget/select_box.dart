@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/options_v2.dart';
+import 'package:myapp/widget/options_v2.dart';
 
 class SelectBox extends StatefulWidget {
   final List<String> items;

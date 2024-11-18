@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/destination_input.dart';
-import 'package:myapp/month_data.dart';
-import 'package:myapp/select_box.dart';
+import 'package:myapp/widget/destination_input.dart';
+import 'package:myapp/data/month_data.dart';
+import 'package:myapp/widget/select_box.dart';
 
 class RandomDestination extends StatefulWidget {
   const RandomDestination({super.key});
@@ -14,7 +14,6 @@ class RandomDestination extends StatefulWidget {
 class _RandomDestinationState extends State<RandomDestination> {
   String _selectedDepartmentMonth = 'January';
   String _selectedReturnMonth = 'April';
-  String? _inputDays;
   String? _inputNumDestionation;
   String? _minNumDays;
   String? _maxNumDays;
@@ -89,16 +88,6 @@ class _RandomDestinationState extends State<RandomDestination> {
                         inputChanged: (value) {
                           setState(() {
                             _inputNumDestionation = value ?? "";
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 30),
-                      DestinationInput(
-                        inputType: "num",
-                        label: "Total number of days",
-                        inputChanged: (value) {
-                          setState(() {
-                            _inputDays = value ?? "";
                           });
                         },
                       ),
@@ -181,20 +170,53 @@ class _RandomDestinationState extends State<RandomDestination> {
                                 '/display',
                                 arguments: {
                                   'numDestination': _inputNumDestionation,
-                                  'totalDays': _inputDays,
                                   'minDays': _minNumDays,
                                   'maxDays': _maxNumDays,
                                   'leaveMonth': _selectedDepartmentMonth,
                                   'returnMonth': _selectedReturnMonth,
+                                  'request': 'random itinerary'
                                 },
                               );
                             },
-                            child: const Text("Travel Itinerary"),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue[500], // background color
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(10), // corner radius
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 30), // padding
+                            ),
+                            child: const Text(
+                              "Travel Itinerary",
+                              style: TextStyle(
+                                fontSize: 18, // font size
+                                fontWeight: FontWeight.w400, // font weight
+                                color: Colors.white, // font color
+                              ),
+                            ),
                           ),
                           const SizedBox(width: 20),
-                          const ElevatedButton(
+                          ElevatedButton(
                             onPressed: null,
-                            child: Text("List of Options"),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color.fromARGB(
+                                  255, 255, 255, 255), // background color
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(10), // corner radius
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 30), // padding
+                            ),
+                            child: const Text(
+                              "List of Options",
+                              style: TextStyle(
+                                fontSize: 18, // font size
+                                fontWeight: FontWeight.w500, // font weight
+                                color: Colors.blue, // font color
+                              ),
+                            ),
                           ),
                         ],
                       )
