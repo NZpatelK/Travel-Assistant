@@ -20,14 +20,21 @@ class _DestinationInputState extends State<DestinationInput> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      keyboardType:
-          widget.inputType == "num" ? TextInputType.number : TextInputType.text,
+      keyboardType: widget.inputType == "num"
+          ? TextInputType.number
+          : widget.inputType == "usd"
+              ? const TextInputType.numberWithOptions(decimal: true)
+              : TextInputType.text,
       inputFormatters: widget.inputType == "num"
           ? <TextInputFormatter>[
               FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
               FilteringTextInputFormatter.digitsOnly,
             ]
-          : null,
+          : widget.inputType == "usd"
+              ? <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                ]
+              : null,
       decoration: InputDecoration(
         labelText: widget.label,
         filled: true,
@@ -45,6 +52,7 @@ class _DestinationInputState extends State<DestinationInput> {
           ),
           borderRadius: BorderRadius.circular(10),
         ),
+        prefixText: widget.inputType == "usd" ? "\$ " : null,
       ),
       onChanged: (value) {
         widget.inputChanged(value);

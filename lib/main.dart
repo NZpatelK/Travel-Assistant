@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myapp/widget/destination_search.dart';
-import 'package:myapp/display_travel_plan.dart';
+import 'package:myapp/display_travel_itinerary.dart';
 import 'package:myapp/home_page.dart';
 
 void main() {
@@ -23,8 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomePage(),
       routes: {
-        '/destination_search': (context) => const DestinationSearch(),
-        '/display': (context) => const DisplayTravelPlan(),
+        '/display': (context) => const DisplayTravelItinerary(),
       },
     );
   }

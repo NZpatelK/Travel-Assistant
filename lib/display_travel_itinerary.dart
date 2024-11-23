@@ -3,17 +3,16 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/data/prompt_request.dart';
 import 'package:myapp/generate_travel_plan.dart';
-import 'package:myapp/markdown_to_pdf.dart';
 
-class DisplayTravelPlan extends StatefulWidget {
-  const DisplayTravelPlan({Key? key}) : super(key: key);
+class DisplayTravelItinerary extends StatefulWidget {
+  const DisplayTravelItinerary({super.key});
 
   @override
-  State<DisplayTravelPlan> createState() => _DisplayTravelPlanState();
+  State<DisplayTravelItinerary> createState() => _DisplayTravelItineraryState();
 }
 
-class _DisplayTravelPlanState extends State<DisplayTravelPlan> {
-  String travelPlan = "Travel Plan is Generating...";
+class _DisplayTravelItineraryState extends State<DisplayTravelItinerary> {
+  String travelPlan = "Travel Itinerary is Generating...";
   String? requestType,
       numDestination,
       country,
@@ -21,8 +20,10 @@ class _DisplayTravelPlanState extends State<DisplayTravelPlan> {
       returnMonth,
       totalDays,
       minDays,
-      maxDays;
+      maxDays,
+      budget;
   int numGenerateDestination = 0;
+  List customDestinations = [];
   List<String> wholePlan = [];
   bool isGenerate = false;
 
@@ -33,20 +34,39 @@ class _DisplayTravelPlanState extends State<DisplayTravelPlan> {
   }
 
   Future<void> getPlan(String? requestType) async {
-    if (requestType == "random itinerary") {
-      final result = await generateTravelPlan(
-        getRandomItinerary(
-            numDestination, leaveMonth, returnMonth, minDays, maxDays),
-      );
+    final String prompt = requestType == "random itinerary"
+        ? getRandomItinerary(
+            numDestination, leaveMonth, returnMonth, minDays, maxDays, budget)
+        : requestType == "random options"
+            ? getRandomOptions(
+                numDestination, leaveMonth, returnMonth, minDays, maxDays, budget)
+            : requestType == "custom itinerary"
+                ? getCustomItinerary(
+                    customDestinations[numGenerateDestination]["name"],
+                    customDestinations[numGenerateDestination]["country"],
+                    customDestinations[numGenerateDestination]["daysMin"],
+                    customDestinations[numGenerateDestination]["daysMax"],
+                    numGenerateDestination + 1,
+                    budget,
+                    customDestinations.length)
+                : getCustomOption(
+                    customDestinations[numGenerateDestination]["name"],
+                    customDestinations[numGenerateDestination]["country"],
+                    customDestinations[numGenerateDestination]["daysMin"],
+                    customDestinations[numGenerateDestination]["daysMax"],
+                    numGenerateDestination + 1,
+                    budget,
+                    customDestinations.length);
 
-      if (result.isNotEmpty) {
-        setState(() {
-          travelPlan = result;
-          wholePlan.add(result);
-          numGenerateDestination++;
-          isGenerate = true;
-        });
-      }
+    final String result = await generateTravelPlan(prompt);
+
+    if (result.isNotEmpty) {
+      setState(() {
+        travelPlan = result;
+        wholePlan.add(result);
+        numGenerateDestination++;
+        isGenerate = true;
+      });
     }
   }
 
@@ -54,11 +74,24 @@ class _DisplayTravelPlanState extends State<DisplayTravelPlan> {
     if (numGenerateDestination < wholePlan.length) {
       setState(() {
         numGenerateDestination++;
-        print(numGenerateDestination);
-        travelPlan = wholePlan[numGenerateDestination-1];
+        travelPlan = wholePlan[numGenerateDestination - 1];
         isGenerate = true;
       });
-    } else if (_canGenerateNext()) {
+      return;
+    }
+
+    if (requestType == "custom itinerary" || requestType == "custom options") {
+      setState(() {
+        travelPlan = "Generating next destination...";
+      });
+      await getPlan(requestType);
+      return;
+    }
+
+    if (_canGenerateNext()) {
+      setState(() {
+        travelPlan = "Generating next destination...";
+      });
       final result = await generateTravelPlan("next destination");
       if (result.isNotEmpty) {
         setState(() {
@@ -75,7 +108,7 @@ class _DisplayTravelPlanState extends State<DisplayTravelPlan> {
     if (numGenerateDestination > 0) {
       setState(() {
         numGenerateDestination--;
-        travelPlan = wholePlan[numGenerateDestination-1];
+        travelPlan = wholePlan[numGenerateDestination - 1];
         isGenerate = true;
       });
     }
@@ -90,12 +123,15 @@ class _DisplayTravelPlanState extends State<DisplayTravelPlan> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments as Map?;
     if (args != null) {
+      customDestinations = args['customDestination'] ?? [];
       requestType = args['request'];
-      numDestination = args['numDestination'];
+      numDestination =
+          args['numDestination'] ?? customDestinations.length.toString();
       leaveMonth = args['leaveMonth'];
       returnMonth = args['returnMonth'];
       minDays = args['minDays'];
       maxDays = args['maxDays'];
+      budget = args['budget'];
     }
 
     if (!isGenerate) {

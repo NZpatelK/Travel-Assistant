@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/markdown_to_pdf.dart';
 import 'package:myapp/widget/destination_input.dart';
 import 'package:myapp/data/month_data.dart';
 import 'package:myapp/widget/select_box.dart';
+import 'package:open_filex/open_filex.dart';
 
 class RandomDestination extends StatefulWidget {
   const RandomDestination({super.key});
@@ -17,6 +19,7 @@ class _RandomDestinationState extends State<RandomDestination> {
   String? _inputNumDestionation;
   String? _minNumDays;
   String? _maxNumDays;
+  String? _budget;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class _RandomDestinationState extends State<RandomDestination> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+              padding: const EdgeInsets.fromLTRB(30, 20, 30 , 10),
               child: Column(
                 children: [
                   Row(
@@ -41,7 +44,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                       Text('Random Destionation',
                           style: GoogleFonts.poppins(
                             color: Colors.white,
-                            fontSize: 24,
+                            fontSize: 20,
                             fontWeight: FontWeight.w600,
                           )),
                       Container(
@@ -57,10 +60,11 @@ class _RandomDestinationState extends State<RandomDestination> {
                             )
                           ],
                         ),
-                        padding: const EdgeInsets.all(14),
+                        padding: const EdgeInsets.all(10),
                         child: const Icon(
                           Icons.notifications,
                           color: Colors.white,
+                          size: 16,
                         ),
                       )
                     ],
@@ -160,6 +164,16 @@ class _RandomDestinationState extends State<RandomDestination> {
                           titleLabel: 'Select Month',
                           headerLabel: 'Select Return Month'),
                       const SizedBox(height: 30),
+                      DestinationInput(
+                        inputType: "usd",
+                        label: "Budget",
+                        inputChanged: (value) => setState(
+                          () {
+                            _budget = value ?? '';
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -174,12 +188,14 @@ class _RandomDestinationState extends State<RandomDestination> {
                                   'maxDays': _maxNumDays,
                                   'leaveMonth': _selectedDepartmentMonth,
                                   'returnMonth': _selectedReturnMonth,
+                                  'budget': _budget,
                                   'request': 'random itinerary'
                                 },
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue[500], // background color
+                              backgroundColor:
+                                  Colors.blue[500], // background color
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.circular(10), // corner radius
@@ -198,7 +214,21 @@ class _RandomDestinationState extends State<RandomDestination> {
                           ),
                           const SizedBox(width: 20),
                           ElevatedButton(
-                            onPressed: null,
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/display',
+                                arguments: {
+                                  'numDestination': _inputNumDestionation,
+                                  'minDays': _minNumDays,
+                                  'maxDays': _maxNumDays,
+                                  'leaveMonth': _selectedDepartmentMonth,
+                                  'returnMonth': _selectedReturnMonth,
+                                  'budget': _budget,
+                                  'request': 'random options'
+                                },
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color.fromARGB(
                                   255, 255, 255, 255), // background color
@@ -219,7 +249,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),

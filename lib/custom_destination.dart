@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/add_new_destination.dart';
+import 'package:myapp/data/month_data.dart';
+import 'package:myapp/widget/add_new_destination.dart';
+import 'package:myapp/widget/destination_input.dart';
+import 'package:myapp/widget/select_box.dart';
 
 class CustomDestination extends StatefulWidget {
   const CustomDestination({super.key});
@@ -11,6 +14,9 @@ class CustomDestination extends StatefulWidget {
 
 class _CustomDestinationState extends State<CustomDestination> {
   final List destinations = [];
+  String _selectedDepartmentMonth = 'January';
+  String _selectedReturnMonth = 'May';
+  String? _budget;
 
   void updateOrderDestinations(int oldIndex, int newIndex) {
     setState(() {
@@ -46,6 +52,171 @@ class _CustomDestinationState extends State<CustomDestination> {
             insetPadding:
                 const EdgeInsets.symmetric(horizontal: 30.0, vertical: 100.0),
             child: AddNewDestination(onAddDestination: addDestination));
+      },
+    );
+  }
+
+  void submitDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          insetPadding:
+              const EdgeInsets.symmetric(horizontal: 30.0, vertical: 200.0),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Select month of your leave and return',
+                  style: TextStyle(fontSize: 20),
+                ),
+                const SizedBox(height: 30),
+                SelectBox(
+                    items: MonthData.months,
+                    selectedValue: _selectedDepartmentMonth,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedDepartmentMonth = value!;
+                      });
+                    },
+                    titleLabel: 'Select Month',
+                    headerLabel: 'Select Leave Month'),
+                const SizedBox(height: 30),
+                SelectBox(
+                    items: MonthData.months,
+                    selectedValue: _selectedReturnMonth,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedReturnMonth = value!;
+                      });
+                    },
+                    titleLabel: 'Select Month',
+                    headerLabel: 'Select Return Month'),
+                const SizedBox(height: 30),
+                DestinationInput(
+                  inputType: "usd",
+                  label: "Budget",
+                  inputChanged: (value) => setState(
+                    () {
+                      _budget = value ?? '';
+                    },
+                  ),
+                ),
+                const Spacer(),
+                Column(
+                  children: [
+                    // First Row with two equally sized buttons
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.pushNamed(
+                                context,
+                                '/display',
+                                arguments: {
+                                  'customDestination': destinations,
+                                  'leaveMonth': _selectedDepartmentMonth,
+                                  'returnMonth': _selectedReturnMonth,
+                                  'budget': _budget,
+                                  'request': 'custom itinerary',
+                                },
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue[500],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 30),
+                            ),
+                            child: const Text(
+                              "Travel Itinerary",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.pushNamed(
+                                context,
+                                '/display',
+                                arguments: {
+                                  'customDestination': destinations,
+                                  'leaveMonth': _selectedDepartmentMonth,
+                                  'returnMonth': _selectedReturnMonth,
+                                  'budget': _budget,
+                                  'request': 'custom options',
+                                },
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color.fromARGB(
+                                  255, 255, 255, 255), // background color
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                // corner radius
+                              ),
+                            ),
+                            child: const Text(
+                              "List of Options",
+                              style: TextStyle(
+                                fontSize: 18, // font size
+                                fontWeight: FontWeight.w500, // font weight
+                                color: Colors.blue, // font color
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+                    // Second Row with a full-width Cancel button
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            side: const BorderSide(
+                              color: Color.fromARGB(255, 211, 33, 20),
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          "Cancel",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Color.fromARGB(255, 211, 33, 20),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
       },
     );
   }
@@ -113,16 +284,17 @@ class _CustomDestinationState extends State<CustomDestination> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
-                          onPressed: () {
-                            // Implement your submit functionality here
-                          },
+                          onPressed: submitDialog,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue[500],
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: const Text('Submit', style: TextStyle(fontSize: 18, color: Colors.white),),
+                          child: const Text(
+                            'Submit',
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 10), // Add spacing if needed
