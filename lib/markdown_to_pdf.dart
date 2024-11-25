@@ -1,32 +1,23 @@
 import 'dart:io';
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 import 'package:html/parser.dart' as html_parser;
 import 'package:markdown/markdown.dart' as md;
 
-/// Converts Markdown content to plain text via HTML parsing
-String convertMarkdownToPlainText(String markdownContent) {
-  // Convert Markdown to HTML
-  final htmlContent = md.markdownToHtml(markdownContent);
-  // Parse HTML to extract plain text
-  final document = html_parser.parse(htmlContent);
-  return document.body?.text ?? '';
-}
 
-/// Generates a PDF from plain text and saves it to a file
-Future<String> createPdf(String plainTextContent, String fileName) async {
+Future<String> generateMarkdownStyledPdf(String markdownContent, String fileName) async {
   final pdf = pw.Document();
 
-  // Add content to the PDF
+  // Parse the Markdown into widgets
+  final widgets = parseMarkdownToPdfWidgets(markdownContent);
+
+  // Add the parsed widgets to the PDF
   pdf.addPage(
-    pw.Page(
-      build: (context) => pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          pw.Header(level: 0, text: 'Markdown to PDF Example'),
-          pw.Text(plainTextContent, style: const pw.TextStyle(fontSize: 14)),
-        ],
-      ),
+    pw.MultiPage(
+      pageFormat: PdfPageFormat.a4,
+      margin: const pw.EdgeInsets.all(20),
+      build: (context) => widgets,
     ),
   );
 
@@ -38,46 +29,86 @@ Future<String> createPdf(String plainTextContent, String fileName) async {
   return filePath;
 }
 
-/// Combines Markdown-to-PlainText conversion and PDF creation
-Future<String> generatePdfFromMarkdown(String markdownContent, String fileName) async {
-  // Step 1: Convert Markdown to plain text
-  final plainTextContent = convertMarkdownToPlainText(markdownContent);
+/// Converts Markdown content into a list of styled PDF widgets
+List<pw.Widget> parseMarkdownToPdfWidgets(String markdownContent) {
+  final elements = md.markdownToHtml(markdownContent);
+  final parsedHtml = html_parser.parse(elements);
 
-  // Step 2: Generate PDF from the plain text
-  final pdfPath = await createPdf(plainTextContent, fileName);
+  List<pw.Widget> widgets = [];
 
-  return pdfPath;
+  for (var element in parsedHtml.body!.children) {
+    switch (element.localName) {
+      case 'h1': // Header 1
+        widgets.add(
+          pw.Header(
+            level: 0,
+            text: element.text,
+            textStyle: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold),
+          ),
+        );
+        break;
+      case 'h2': // Header 2
+        widgets.add(
+          pw.Header(
+            level: 1,
+            text: element.text,
+            textStyle: pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold),
+          ),
+        );
+        break;
+      case 'h3': // Header 3
+        widgets.add(
+          pw.Header(
+            level: 2,
+            text: element.text,
+            textStyle: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold),
+          ),
+        );
+        break;
+      case 'p': // Paragraph
+        if (element.text.trim() == '---') {
+          // Add a horizontal rule for "---"
+          widgets.add(
+            pw.Divider(thickness: 1, color: PdfColors.grey),
+          );
+        } else {
+          widgets.add(
+            pw.Text(
+              element.text,
+              style: const pw.TextStyle(fontSize: 14),
+            ),
+          );
+        }
+        break;
+      case 'ul': // Unordered list
+        final listItems = element.children
+            .where((child) => child.localName == 'li')
+            .map((li) => pw.Bullet(text: li.text))
+            .toList();
+        widgets.addAll(listItems);
+        break;
+      case 'a': // Hyperlinks
+        widgets.add(
+          pw.Text(
+            element.text,
+            style: const pw.TextStyle(
+              fontSize: 14,
+              decoration: pw.TextDecoration.underline,
+              color: PdfColors.blue,
+            ),
+          ),
+        );
+        break;
+      default:
+        widgets.add(
+          pw.Text(
+            element.text,
+            style: const pw.TextStyle(fontSize: 14),
+          ),
+        );
+        break;
+    }
+  }
+
+  return widgets;
 }
-
-
-
-
-//                   ElevatedButton(
-//                     onPressed: () async {
-//                       const markdownContent = """
-// # Hello World
-// This is **Markdown** content converted to a **PDF**.
-
-// - Item 1
-// - Item 2
-// - Item 3
-
-// Visit [Flutter](https://flutter.dev).
-// """;
-
-//                       try {
-//                         final pdfPath = await generatePdfFromMarkdown(
-//                             markdownContent, "example_markdown");
-//                         ScaffoldMessenger.of(context).showSnackBar(
-//                           SnackBar(content: Text('PDF saved at: $pdfPath')),
-//                         );
-//                         // Open the PDF
-//                         await OpenFilex.open(pdfPath);
-//                       } catch (e) {
-//                         ScaffoldMessenger.of(context).showSnackBar(
-//                           SnackBar(content: Text('Error: $e')),
-//                         );
-//                       }
-//                     },
-//                     child: Text('Generate PDF'),
-//                   ),

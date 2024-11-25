@@ -43,7 +43,7 @@ class _AddNewDestinationState extends State<AddNewDestination> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
       height: 600,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -51,9 +51,9 @@ class _AddNewDestinationState extends State<AddNewDestination> {
           Text(
             "Add New Destination",
             style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
           SelectBox(
             items: destinationList.map((map) => map.keys.first).toList(),
             selectedValue: selectedCountry,
@@ -66,7 +66,7 @@ class _AddNewDestinationState extends State<AddNewDestination> {
             titleLabel: 'Country',
             headerLabel: "Select Country",
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 10),
           SelectBox(
             items: cities,
             selectedValue: (selectedCity?.isEmpty ?? true) ||
@@ -81,7 +81,7 @@ class _AddNewDestinationState extends State<AddNewDestination> {
             titleLabel: 'City',
             headerLabel: "Select Destination",
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15),
           Container(
             alignment: Alignment.centerLeft,
             child: Column(
@@ -89,7 +89,7 @@ class _AddNewDestinationState extends State<AddNewDestination> {
               children: [
                 const Text(
                   "How many days do you want to spend at each destination? (min - max)",
-                  style: TextStyle(fontSize: 16, color: Colors.black),
+                  style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
                 const SizedBox(height: 20),
                 Row(
@@ -104,7 +104,7 @@ class _AddNewDestinationState extends State<AddNewDestination> {
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 50),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         "To",
                         style: TextStyle(fontSize: 16, color: Colors.black),
@@ -125,12 +125,13 @@ class _AddNewDestinationState extends State<AddNewDestination> {
               ],
             ),
           ),
+          // const SizedBox(height: 20),
           const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                  width: 200, // Fixed width
+                  width: 120, // Fixed width
                   height: 50, // Fixed height
                   child: ElevatedButton(
                     onPressed: () {
@@ -152,14 +153,14 @@ class _AddNewDestinationState extends State<AddNewDestination> {
                     child: const Text(
                       "Cancel",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 14,
                         color: Color.fromARGB(255, 211, 33, 20),
                       ),
                     ),
                   )),
               const SizedBox(width: 20), // Add spacing between buttons
               SizedBox(
-                width: 200, // Fixed width
+                width: 150, // Fixed width
                 height: 50, // Fixed height
                 child: ElevatedButton(
                   onPressed: () {

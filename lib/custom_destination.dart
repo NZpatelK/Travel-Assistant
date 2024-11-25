@@ -44,17 +44,31 @@ class _CustomDestinationState extends State<CustomDestination> {
     });
   }
 
-  void showAddDestinationDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-            insetPadding:
-                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 100.0),
-            child: AddNewDestination(onAddDestination: addDestination));
-      },
-    );
-  }
+void showAddDestinationDialog() {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return Dialog(
+        insetPadding: EdgeInsets.all(20), // No inset padding
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0, // Position the dialog at the top
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: EdgeInsets.all(10.0), // Customize padding as needed
+                child: AddNewDestination(onAddDestination: addDestination),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+
 
   void submitDialog() {
     showDialog(
@@ -235,36 +249,52 @@ class _CustomDestinationState extends State<CustomDestination> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
+              child: Column(
                 children: [
-                  Text(
-                    'Custom Destination',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blue[500],
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color.fromARGB(255, 36, 36, 36)
-                              .withOpacity(0.2),
-                          blurRadius: 10,
-                          offset: const Offset(0, 3),
-                        )
-                      ],
-                    ),
-                    padding: const EdgeInsets.all(14),
-                    child: const Icon(
-                      Icons.notifications,
-                      color: Colors.white,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                       GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                      Text('Custom Destionation',
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          )),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue[500],
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color.fromARGB(255, 36, 36, 36)
+                                  .withOpacity(0.2),
+                              blurRadius: 10,
+                              offset: const Offset(0, 3),
+                            )
+                          ],
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: const Icon(
+                          Icons.notifications,
+                          color: Colors.white,
+                          size: 16,
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),
@@ -278,7 +308,7 @@ class _CustomDestinationState extends State<CustomDestination> {
                 ),
                 child: Container(
                   color: Colors.grey[200],
-                  padding: const EdgeInsets.all(30),
+                  padding: const EdgeInsets.fromLTRB(0, 10, 25, 0),
                   child: Column(
                     children: [
                       Align(
@@ -290,10 +320,12 @@ class _CustomDestinationState extends State<CustomDestination> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 0),
                           ),
                           child: const Text(
                             'Submit',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
+                            style: TextStyle(fontSize: 12, color: Colors.white),
                           ),
                         ),
                       ),
@@ -382,14 +414,14 @@ class _CustomDestinationState extends State<CustomDestination> {
           icon: const Icon(Icons.add, color: Colors.white),
           label: const Text(
             'Add New Destination',
-            style: TextStyle(color: Colors.white, fontSize: 18),
+            style: TextStyle(color: Colors.white, fontSize: 12),
           ),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blue,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           ),
         ),
       ),

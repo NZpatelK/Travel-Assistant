@@ -24,17 +24,16 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50.0),
+              padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Travel Assisant',
+                      Text('Random Destionation',
                           style: GoogleFonts.poppins(
                             color: Colors.white,
-                            fontSize: 24,
+                            fontSize: 20,
                             fontWeight: FontWeight.w600,
                           )),
                       Container(
@@ -50,10 +49,11 @@ class _HomePageState extends State<HomePage> {
                             )
                           ],
                         ),
-                        padding: const EdgeInsets.all(14),
+                        padding: const EdgeInsets.all(10),
                         child: const Icon(
                           Icons.notifications,
                           color: Colors.white,
+                          size: 16,
                         ),
                       )
                     ],
@@ -78,17 +78,11 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: 50,
                       ),
-                      Options(
-                        label: 'Random Journey Plan',
-                        pageName: 'random'
-                      ),
+                      Options(label: 'Random Journey Plan', pageName: 'random'),
                       SizedBox(
-                        height: 30,
+                        height: 20,
                       ),
-                      Options(
-                        label: 'Custom Journey Plan',
-                        pageName: 'custom'
-                      ),
+                      Options(label: 'Custom Journey Plan', pageName: 'custom'),
                     ],
                   ),
                 ),

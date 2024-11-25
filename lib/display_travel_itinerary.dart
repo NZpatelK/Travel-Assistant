@@ -3,6 +3,8 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/data/prompt_request.dart';
 import 'package:myapp/generate_travel_plan.dart';
+import 'package:myapp/markdown_to_pdf.dart';
+import 'package:open_filex/open_filex.dart';
 
 class DisplayTravelItinerary extends StatefulWidget {
   const DisplayTravelItinerary({super.key});
@@ -38,8 +40,8 @@ class _DisplayTravelItineraryState extends State<DisplayTravelItinerary> {
         ? getRandomItinerary(
             numDestination, leaveMonth, returnMonth, minDays, maxDays, budget)
         : requestType == "random options"
-            ? getRandomOptions(
-                numDestination, leaveMonth, returnMonth, minDays, maxDays, budget)
+            ? getRandomOptions(numDestination, leaveMonth, returnMonth, minDays,
+                maxDays, budget)
             : requestType == "custom itinerary"
                 ? getCustomItinerary(
                     customDestinations[numGenerateDestination]["name"],
@@ -150,37 +152,52 @@ class _DisplayTravelItineraryState extends State<DisplayTravelItinerary> {
         child: Column(
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
+              child: Column(
                 children: [
-                  Text(
-                    'Travel Assistant',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blue[500],
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color.fromARGB(255, 36, 36, 36)
-                              .withOpacity(0.2),
-                          blurRadius: 10,
-                          offset: const Offset(0, 3),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                         ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.all(14),
-                    child: const Icon(
-                      Icons.notifications,
-                      color: Colors.white,
-                    ),
+                      ),
+                      Text('Travel Itinerary',
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          )),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue[500],
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color.fromARGB(255, 36, 36, 36)
+                                  .withOpacity(0.2),
+                              blurRadius: 10,
+                              offset: const Offset(0, 3),
+                            )
+                          ],
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: const Icon(
+                          Icons.notifications,
+                          color: Colors.white,
+                          size: 16,
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),
@@ -246,6 +263,26 @@ class _DisplayTravelItineraryState extends State<DisplayTravelItinerary> {
                               ),
                             ),
                           ],
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            final markdownContent = wholePlan[0];
+                            try {
+                              final pdfPath = await generateMarkdownStyledPdf(
+                                  markdownContent, "styled_markdown_example");
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('PDF saved at: $pdfPath')),
+                              );
+                              // Open the PDF
+                              await OpenFilex.open(pdfPath);
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Error: $e')),
+                              );
+                            }
+                          },
+                          child: Text('Generate Styled PDF'),
                         ),
                       ],
                     ),

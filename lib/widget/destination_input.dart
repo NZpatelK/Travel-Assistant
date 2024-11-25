@@ -35,8 +35,11 @@ class _DestinationInputState extends State<DestinationInput> {
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                 ]
               : null,
+      style: const TextStyle(fontSize: 14),
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.all(10),
         labelText: widget.label,
+        labelStyle: const TextStyle(fontSize: 14),
         filled: true,
         fillColor: Colors.white,
         enabledBorder: OutlineInputBorder(

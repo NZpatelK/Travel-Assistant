@@ -26,10 +26,10 @@ class _OptionsState extends State<Options> {
         Get.to(() => widget.pageName == "random" ? const RandomDestination() : const CustomDestination(), transition: Transition.leftToRightWithFade);
       },
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
               color: Color.fromARGB(255, 196, 196, 196),
@@ -39,12 +39,12 @@ class _OptionsState extends State<Options> {
           ],
         ),
         child: Row(children: [
-          const Icon(Icons.airplane_ticket, color: Colors.blue, size: 50),
+          const Icon(Icons.airplane_ticket, color: Colors.blue, size: 35),
           const SizedBox(width: 20),
           Text(
             widget.label,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 14,
               color: const Color.fromARGB(255, 54, 54, 54),
               fontWeight: FontWeight.w600,
               fontFamily: GoogleFonts.poppins().fontFamily,

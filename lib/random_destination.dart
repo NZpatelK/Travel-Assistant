@@ -35,13 +35,26 @@ class _RandomDestinationState extends State<RandomDestination> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(30, 20, 30 , 10),
+              padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Random Destionation',
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                      Text('Random Destination',
                           style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontSize: 20,
@@ -66,14 +79,14 @@ class _RandomDestinationState extends State<RandomDestination> {
                           color: Colors.white,
                           size: 16,
                         ),
-                      )
+                      ),
                     ],
-                  ),
+                  )
                 ],
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Expanded(
               child: ClipRRect(
@@ -83,19 +96,20 @@ class _RandomDestinationState extends State<RandomDestination> {
                 ),
                 child: Container(
                   color: Colors.grey[200],
-                  padding: const EdgeInsets.all(30),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                   child: Column(
                     children: [
                       DestinationInput(
                         inputType: "num",
-                        label: "number of destinations",
+                        label: "Number of destinations",
                         inputChanged: (value) {
                           setState(() {
                             _inputNumDestionation = value ?? "";
                           });
                         },
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 10),
                       Container(
                         alignment: Alignment.centerLeft,
                         child: Column(
@@ -104,7 +118,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                             const Text(
                               "How many days do you want to spend at each destination? (min - max)",
                               style:
-                                  TextStyle(fontSize: 16, color: Colors.black),
+                                  TextStyle(fontSize: 14, color: Colors.black),
                             ),
                             const SizedBox(height: 5),
                             Row(
@@ -119,7 +133,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                                   ),
                                 ),
                                 const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 50),
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
                                   child: Text(
                                     "To",
                                     style: TextStyle(
@@ -141,7 +155,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 10),
                       SelectBox(
                           items: MonthData.months,
                           selectedValue: _selectedDepartmentMonth,
@@ -152,7 +166,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                           },
                           titleLabel: 'Select Month',
                           headerLabel: 'Select Department Month'),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 10),
                       SelectBox(
                           items: MonthData.months,
                           selectedValue: _selectedReturnMonth,
@@ -163,7 +177,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                           },
                           titleLabel: 'Select Month',
                           headerLabel: 'Select Return Month'),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 10),
                       DestinationInput(
                         inputType: "usd",
                         label: "Budget",
@@ -173,7 +187,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                           },
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -201,12 +215,12 @@ class _RandomDestinationState extends State<RandomDestination> {
                                     BorderRadius.circular(10), // corner radius
                               ),
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 30), // padding
+                                  vertical: 10, horizontal: 20), // padding
                             ),
                             child: const Text(
                               "Travel Itinerary",
                               style: TextStyle(
-                                fontSize: 18, // font size
+                                fontSize: 14, // font size
                                 fontWeight: FontWeight.w400, // font weight
                                 color: Colors.white, // font color
                               ),
@@ -237,12 +251,12 @@ class _RandomDestinationState extends State<RandomDestination> {
                                     BorderRadius.circular(10), // corner radius
                               ),
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 30), // padding
+                                  vertical: 10, horizontal: 20), // padding
                             ),
                             child: const Text(
                               "List of Options",
                               style: TextStyle(
-                                fontSize: 18, // font size
+                                fontSize: 14, // font size
                                 fontWeight: FontWeight.w500, // font weight
                                 color: Colors.blue, // font color
                               ),
