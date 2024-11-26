@@ -32,13 +32,6 @@ Click the link above to see the full demo of the Travel Assistant in action.
 
 4. **Enjoy Your Trip!**: Follow your personalized, day-by-day itinerary, making the most of your travel experience ✨.
 
-## 🔮 Future Development Roadmap
-- **🎨 UI/UX Improvements**: We're working on a cleaner, more modern interface to make the app even easier and more enjoyable to use.
-- **🎉 Event & Festival Integration**: Discover local events and festivals happening during your trip, adding even more excitement to your travel plans.
-- **📅 Full Itinerary Automation**: Future versions will automatically generate full itineraries, including transportation 🚗, accommodations 🏨, and activities 🎢.
-- **🌎 Country & Region Suggestions**: Soon, Travel Assistant will recommend ideal countries and regions based on your travel style and preferences.
-- **🛠️ Enhanced Personalization**: Over time, the app will learn from your past trips and preferences, providing even more tailored travel suggestions.
-
 ## 🌍 Why Travel Assistant?
 Planning a trip doesn’t have to be stressful! Travel Assistant makes the process effortless by using AI to generate customized travel suggestions and itineraries based on your interests. Forget generic tourist traps – with hidden gems 💎 and off-the-beaten-path recommendations, every trip feels like a personal adventure 🎒.
 
