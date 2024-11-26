@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widget/options_v2.dart';
+import 'package:myapp/widget/cupertino_select_box.dart';
 
 class SelectBox extends StatefulWidget {
   final List<String> items;
@@ -55,7 +55,7 @@ class _SelectBoxState extends State<SelectBox> {
                 widget.selectedValue,
                 style: const TextStyle(fontSize: 16),
               ),
-              OptionsV2(
+              CupertinoSelectBox(
                 items: widget.items,
                 selectedValue: widget.selectedValue,
                 titleLabel: widget.titleLabel,

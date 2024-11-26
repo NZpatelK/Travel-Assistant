@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myapp/markdown_to_pdf.dart';
-import 'package:myapp/widget/destination_input.dart';
 import 'package:myapp/data/month_data.dart';
+import 'package:myapp/widget/input_field.dart';
 import 'package:myapp/widget/select_box.dart';
-import 'package:open_filex/open_filex.dart';
 
 class RandomDestination extends StatefulWidget {
   const RandomDestination({super.key});
@@ -100,7 +98,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                   child: Column(
                     children: [
-                      DestinationInput(
+                      InputField(
                         inputType: "num",
                         label: "Number of destinations",
                         inputChanged: (value) {
@@ -124,7 +122,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                             Row(
                               children: [
                                 Expanded(
-                                  child: DestinationInput(
+                                  child: InputField(
                                     inputType: "num",
                                     label: "Min days",
                                     inputChanged: (value) => setState(() {
@@ -142,7 +140,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                                   ),
                                 ),
                                 Expanded(
-                                  child: DestinationInput(
+                                  child: InputField(
                                     inputType: "num",
                                     label: "Max days",
                                     inputChanged: (value) => setState(() {
@@ -178,7 +176,7 @@ class _RandomDestinationState extends State<RandomDestination> {
                           titleLabel: 'Select Month',
                           headerLabel: 'Select Return Month'),
                       const SizedBox(height: 10),
-                      DestinationInput(
+                      InputField(
                         inputType: "usd",
                         label: "Budget",
                         inputChanged: (value) => setState(

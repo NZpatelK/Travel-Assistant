@@ -3,28 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/widget/button_widget.dart';
 
-class OptionsV2 extends StatefulWidget {
+class CupertinoSelectBox extends StatefulWidget {
   final List<String> items;
   final String? selectedValue;
   final ValueChanged<String?> onChanged;
   final String? titleLabel;
   final bool? isShowSnackBar;
 
-  const OptionsV2(
-      {super.key,
-      required this.items,
-      required this.selectedValue,
-      required this.onChanged,
-      required this.titleLabel,
-      this.isShowSnackBar});
+  const CupertinoSelectBox({
+    super.key,
+    required this.items,
+    this.selectedValue,
+    required this.onChanged,
+    this.titleLabel,
+    this.isShowSnackBar,
+  });
 
   @override
-  State<OptionsV2> createState() => _OptionsV2State();
+  State<StatefulWidget> createState() => _CupertinoSelectBoxState();
 }
 
-class _OptionsV2State extends State<OptionsV2> {
+class _CupertinoSelectBoxState extends State<CupertinoSelectBox> {
   int index = 0;
-
+  
   @override
   Widget build(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -214,7 +214,7 @@ class _DisplayTravelItineraryState extends State<DisplayTravelItinerary> {
                   width: double.maxFinite,
                   padding: const EdgeInsets.all(20),
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(0),
                     child: Column(
                       children: [
                         MarkdownBody(data: travelPlan),
@@ -226,47 +226,53 @@ class _DisplayTravelItineraryState extends State<DisplayTravelItinerary> {
                               onPressed: numGenerateDestination - 1 > 0
                                   ? prevDestination
                                   : null,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[500],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 20, horizontal: 30),
+                             style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Colors.blue[500], // background color
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(10), // corner radius
                               ),
-                              child: const Text(
-                                'Previous Destination',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 20), // padding
+                            ),
+                            child: const Text(
+                              "Previous Destination",
+                              style: TextStyle(
+                                fontSize: 14, // font size
+                                fontWeight: FontWeight.w400, // font weight
+                                color: Colors.white, // font color
                               ),
+                            ),
                             ),
                             const SizedBox(width: 20),
                             ElevatedButton(
                               onPressed:
                                   _canGenerateNext() ? nextDestination : null,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[500],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 20, horizontal: 30),
+                              backgroundColor:
+                                  Colors.blue[500], // background color
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(10), // corner radius
                               ),
-                              child: const Text(
-                                'Next Destination',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 20), // padding
+                            ),
+                            child: const Text(
+                              "Next Destination",
+                              style: TextStyle(
+                                fontSize: 14, // font size
+                                fontWeight: FontWeight.w400, // font weight
+                                color: Colors.white, // font color
                               ),
+                            ),
                             ),
                           ],
                         ),
                         ElevatedButton(
                           onPressed: () async {
-                            final markdownContent = wholePlan[0];
+                            final markdownContent = wholePlan.join("\n --- \n");
                             try {
                               final pdfPath = await generateMarkdownStyledPdf(
                                   markdownContent, "styled_markdown_example");
@@ -282,7 +288,24 @@ class _DisplayTravelItineraryState extends State<DisplayTravelItinerary> {
                               );
                             }
                           },
-                          child: Text('Generate Styled PDF'),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color.fromARGB(
+                                  255, 255, 255, 255), // background color
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(10), // corner radius
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 20), // padding
+                            ),
+                            child: const Text(
+                              "Print Travel Itinerary",
+                              style: TextStyle(
+                                fontSize: 14, // font size
+                                fontWeight: FontWeight.w500, // font weight
+                                color: Colors.blue, // font color
+                              ),
+                            ),
                         ),
                       ],
                     ),

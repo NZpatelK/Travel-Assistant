@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class DestinationInput extends StatefulWidget {
+class InputField extends StatefulWidget {
   final String inputType;
   final String label;
   final ValueChanged<String?> inputChanged;
 
-  const DestinationInput(
+  const InputField(
       {super.key,
       required this.inputType,
       required this.label,
       required this.inputChanged});
 
   @override
-  State<DestinationInput> createState() => _DestinationInputState();
+  State<StatefulWidget> createState() => _InputFieldState();
 }
 
-class _DestinationInputState extends State<DestinationInput> {
+class _InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
     return TextField(

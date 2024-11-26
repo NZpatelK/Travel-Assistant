@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/data/destination_data.dart';
-import 'package:myapp/widget/destination_input.dart';
+import 'package:myapp/widget/input_field.dart';
 import 'package:myapp/widget/select_box.dart';
 
 class AddNewDestination extends StatefulWidget {
@@ -95,7 +95,7 @@ class _AddNewDestinationState extends State<AddNewDestination> {
                 Row(
                   children: [
                     Expanded(
-                      child: DestinationInput(
+                      child: InputField(
                         inputType: "num",
                         label: "Min days",
                         inputChanged: (value) => setState(() {
@@ -112,7 +112,7 @@ class _AddNewDestinationState extends State<AddNewDestination> {
                       ),
                     ),
                     Expanded(
-                      child: DestinationInput(
+                      child: InputField(
                         inputType: "num",
                         label: "Max days",
                         inputChanged: (value) => setState(() {
